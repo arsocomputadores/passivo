@@ -255,8 +255,6 @@
             margin: 0 auto 10px;
         }
 
-        /* Adicionar após o CSS existente, antes do </style> */
-        
         /* Responsividade */
         @media (max-width: 768px) {
             body {
@@ -326,8 +324,9 @@
             }
             
             .form-container,
-            .button-group {
-                display: none;
+            .button-group,
+            .no-print {
+                display: none !important;
             }
             
             #declaracao-content {
@@ -346,9 +345,10 @@
 
     <div class="container">
         <div class="header">
-            <h1>🏠 Declaração CODHAB</h1>
-            <p>Preencha os dados abaixo para gerar a declaração</p>
-        </div>
+            <div class="header">
+                <h1>🏠 Declaração CODHAB</h1>
+                <p class="no-print">Preencha os dados abaixo para gerar a declaração</p>
+            </div>
 
         <div class="form-container">
             <form id="declaracao-form" onsubmit="event.preventDefault(); gerarDeclaracao();">
@@ -397,9 +397,10 @@
                 </div>
 
                 <div class="button-group">
-                    <button type="submit" class="btn btn-primary">📄 Gerar Declaração</button>
+                    <button type="submit" class="btn btn-primary">📋 Gerar Declaração</button>
                     <button type="button" onclick="imprimirDeclaracao()" class="btn btn-success">🖨️ Imprimir</button>
-                    <button type="button" onclick="gerarPDF()" class="btn btn-danger">📁 Gerar PDF</button>
+                    <button type="button" onclick="gerarPDF()" class="btn btn-danger">📄 Gerar PDF</button>
+                    <button type="button" onclick="window.close()" class="btn btn-secondary">🏠 Voltar</button>
                 </div>
             </form>
         </div>

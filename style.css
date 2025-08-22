@@ -321,14 +321,17 @@ h1::after {
     border-radius: 20px;
     padding: 2rem;
     box-shadow: var(--shadow);
-    max-width: 600px;
-    margin: 2rem auto;
+    max-width: 500px;
+    width: 90%;
+    margin: 1rem auto;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 .cadastro-form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
 .form-group {
@@ -340,21 +343,112 @@ h1::after {
 .form-group label {
     font-weight: 600;
     color: var(--text-primary);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
 
 .form-group input {
-    padding: 0.8rem 1rem;
+    padding: 0.7rem;
     border: 2px solid #e2e8f0;
-    border-radius: 10px;
-    font-size: 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
     transition: var(--transition);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .form-group input:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
     outline: none;
+}
+
+.form-actions {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.btn-submit {
+    flex: 1;
+    padding: 0.8rem;
+    background: linear-gradient(135deg, var(--success-color), var(--success-dark));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 2px 4px rgba(34, 197, 94, 0.2);
+}
+
+.btn-submit:hover {
+    background: linear-gradient(135deg, var(--success-dark), var(--success-color));
+    box-shadow: 0 4px 6px rgba(34, 197, 94, 0.3);
+}
+
+.btn-voltar {
+    padding: 0.8rem 1.2rem;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-dark));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
+}
+
+.btn-voltar:hover {
+    background: linear-gradient(135deg, var(--accent-dark), var(--accent-color));
+    box-shadow: 0 4px 6px rgba(99, 102, 241, 0.3);
+}
+
+/* Responsividade melhorada */
+@media (max-width: 768px) {
+    .card-form {
+        margin: 0.5rem;
+        padding: 1.5rem;
+        width: calc(100% - 1rem);
+        max-height: 85vh;
+    }
+
+    .form-group input {
+        font-size: 16px;
+        padding: 0.8rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn-submit,
+    .btn-voltar {
+        width: 100%;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-form {
+        margin: 0.25rem;
+        padding: 1rem;
+        width: calc(100% - 0.5rem);
+        max-height: 90vh;
+    }
+
+    .container {
+        margin: 0.5rem;
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
 }
 
 .form-actions {
@@ -530,4 +624,4 @@ h1::after {
 
 .novo-cadastro-section, .emitir-declaracao-section {
     /* Estilos adicionais, se necessário */
-} 
+}

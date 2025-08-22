@@ -289,6 +289,14 @@ if (isset($_GET['id'])) {
             $mensagem = "Registro não encontrado.";
         }
     }
+} else {
+    // Para novos cadastros, gerar próximo número do passivo
+    require_once './db_connection.php';
+    $queryMax = "SELECT MAX(CAST(numero_passivo AS UNSIGNED)) as max_passivo FROM alunos WHERE numero_passivo REGEXP '^[0-9]+$'";
+    $stmtMax = $conn->prepare($queryMax);
+    $stmtMax->execute();
+    $result = $stmtMax->fetch(PDO::FETCH_ASSOC);
+    $numeroPassivo = max(28908, ($result['max_passivo'] ?? 28907) + 1);
 }
 ?>
 <body>
@@ -301,7 +309,7 @@ if (isset($_GET['id'])) {
             <div class="form-icon">
                 <i class="fas fa-user-plus"></i>
             </div>
-            <h1>Cadastro Passivo</h1>
+            <h1>Cadastro Passivo - CEF 411 Samambaia</h1>
             <p class="subtitle">Sistema de Registro de Alunos</p>
         </div>
         
@@ -325,8 +333,8 @@ if (isset($_GET['id'])) {
             <div class="input-group">
                 <label for="numeroPassivo">Número Passivo:</label>
                 <div class="input-wrapper">
-                    <input type="number" id="numeroPassivo" name="numeroPassivo" placeholder="Digite o número passivo" required value="<?php echo isset($numeroPassivo) ? htmlspecialchars($numeroPassivo, ENT_QUOTES, 'UTF-8') : ''; ?>">
-                    <i class="fas fa-hashtag"></i>
+                    <input type="text" id="numeroPassivo" name="numeroPassivo" placeholder="Número gerado automaticamente" readonly value="<?php echo isset($numeroPassivo) ? htmlspecialchars($numeroPassivo, ENT_QUOTES, 'UTF-8') : ''; ?>" style="background-color: #f5f5f5; cursor: not-allowed;">
+                    <i class="fas fa-file-alt"></i>
                 </div>
             </div>
 
@@ -339,7 +347,7 @@ if (isset($_GET['id'])) {
             </div>
 
             <div class="input-group">
-                <label for="matricula">Matrícula:</label>
+                <label for="matricula">Matrícula/Código:</label>
                 <div class="input-wrapper">
                     <input type="text" id="matricula" name="matricula" placeholder="Digite a matrícula" required value="<?php echo isset($matricula) ? $matricula : '' ?>" <?php echo isset($disabled) ? $disabled : ''?>>
                     <i class="fas fa-id-card"></i>

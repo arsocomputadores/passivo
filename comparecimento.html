@@ -255,8 +255,6 @@
             margin: 0 auto 10px;
         }
 
-        /* Adicionar após o CSS existente, antes do </style> */
-        
         /* Responsividade */
         @media (max-width: 768px) {
             body {
@@ -306,7 +304,7 @@
             .form-group select,
             .form-group textarea {
                 padding: 10px;
-                font-size: 16px; /* Evita zoom no iOS */
+                font-size: 16px;
             }
             
             .btn {
@@ -326,8 +324,9 @@
             }
             
             .form-container,
-            .button-group {
-                display: none;
+            .button-group,
+            .no-print {
+                display: none !important;
             }
             
             #declaracao {
@@ -347,7 +346,7 @@
     <div class="container">
         <div class="header">
             <h1>📋 Declaração de Comparecimento</h1>
-            <p>Preencha os dados abaixo para gerar a declaração</p>
+            <p class="no-print">Preencha os dados abaixo para gerar a declaração</p>
         </div>
 
         <div class="form-container">

@@ -170,9 +170,76 @@
             margin: 20px 0;
         }
         .button-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .button-group {
             display: flex;
             gap: 10px;
-            margin: 20px 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #f56565, #e53e3e);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #718096, #4a5568);
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .no-print {
+            display: block;
+        }
+        
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 200px;
+                justify-content: center;
+            }
         }
 
         .action-button {
@@ -410,9 +477,12 @@
     </script>
 
     <div class="button-container no-print">
-        <button class="action-button blue" onclick="gerarDeclaracao()">Gerar Declaração</button>
-        <button class="action-button" onclick="window.print()">Imprimir</button>
-        <button class="action-button red" onclick="gerarPDF()">Gerar PDF</button>
+        <div class="button-group">
+            <button type="button" onclick="gerarDeclaracao()" class="btn btn-primary">📋 Gerar Declaração</button>
+            <button type="button" onclick="window.print()" class="btn btn-success">🖨️ Imprimir</button>
+            <button type="button" onclick="gerarPDF()" class="btn btn-danger">📄 Gerar PDF</button>
+            <a href="home.php" class="btn btn-secondary">🏠 Voltar</a>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -442,90 +512,8 @@
 </body>
 </html>
 
-        /* Adicionar após as regras @media print existentes */
-        
-        /* Responsividade para tela */
-        @media screen and (max-width: 768px) {
-            body {
-                padding: 10px;
-                font-size: 14px;
+        <script>
+            function imprimirDeclaracao() {
+                window.print();
             }
-            
-            .container {
-                padding: 15px;
-                margin: 5px;
-            }
-            
-            .header {
-                text-align: center;
-            }
-            
-            .header h3 {
-                font-size: 14px;
-                margin: 5px 0;
-            }
-            
-            .titulo-principal {
-                font-size: 16px;
-                text-align: center;
-            }
-            
-            table {
-                width: 100%;
-                font-size: 12px;
-            }
-            
-            td, th {
-                padding: 5px 2px;
-                word-wrap: break-word;
-            }
-            
-            .logo {
-                width: 40px;
-                height: auto;
-            }
-            
-            .button-group {
-                flex-direction: column;
-                gap: 10px;
-                margin-top: 20px;
-            }
-            
-            .btn {
-                width: 100%;
-                padding: 12px;
-                font-size: 14px;
-            }
-        }
-        
-        @media screen and (max-width: 480px) {
-            body {
-                padding: 5px;
-                font-size: 12px;
-            }
-            
-            .container {
-                padding: 10px;
-            }
-            
-            .header h3 {
-                font-size: 12px;
-            }
-            
-            .titulo-principal {
-                font-size: 14px;
-            }
-            
-            table {
-                font-size: 10px;
-            }
-            
-            td, th {
-                padding: 3px 1px;
-            }
-            
-            .btn {
-                padding: 15px;
-                font-size: 16px;
-            }
-        }
+        </script>
