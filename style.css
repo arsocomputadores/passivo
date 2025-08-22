@@ -50,6 +50,7 @@ body {
 h1 {
     background: linear-gradient(300deg, #22c55e, #16a34a, #059669, #047857);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 300% 300%;
     animation: gradientTitle 15s ease infinite;
@@ -68,7 +69,7 @@ h1::after {
     transform: translateX(-50%);
     width: 100px;
     height: 4px;
-    background: var(--primary-color);
+    background: var(--primary-dark); /* Corrigido: era --primary-color */
     border-radius: 2px;
 }
 
@@ -97,7 +98,7 @@ h1::after {
 }
 
 .search-form input[type="text"]:focus {
-    border-color: var(--primary-color);
+    border-color: var(--primary-dark); /* Corrigido: era --primary-color */
     box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
 }
 
@@ -157,7 +158,10 @@ h1::after {
 .card-header h2 {
     font-size: 1.35rem;
     font-weight: 700;
-    background: linear-gradient(120deg, var(--primary-color), var(--primary-dark));
+    background: linear-gradient(120deg, var(--primary-dark), var(--primary-dark));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .info-item {
@@ -358,8 +362,8 @@ h1::after {
 }
 
 .form-group input:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    border-color: var(--primary-dark); /* Corrigido: era --primary-color */
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1); /* Corrigido: cor ajustada */
     outline: none;
 }
 
@@ -622,6 +626,6 @@ h1::after {
     margin-top: 20px; /* Espaçamento superior */
 }
 
-.novo-cadastro-section, .emitir-declaracao-section {
+/* Remove empty ruleset - no styles defined */
     /* Estilos adicionais, se necessário */
-}
+/* Remove empty ruleset that had no styles defined */

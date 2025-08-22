@@ -660,7 +660,7 @@ if (isset($_POST['submit'])) {
                         <i class="fas fa-file-contract"></i> Emitir Declaração Codhab
                     </button>
                     <button class="btn" onclick="emitirDeclaracaoEscolaridade()">
-                        <i class="fas fa-graduation-cap"></i> Emitir Declaração de Escolaridade (Em construção)
+                        <i class="fas fa-graduation-cap"></i> Emitir Declaração de Escolaridade
                     </button>
                     <button class="btn" onclick="emitirDeclaracaoProvisoria()">
                         <i class="fas fa-file-medical"></i> Emitir Declaração Provisória

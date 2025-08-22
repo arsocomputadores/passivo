@@ -1,11 +1,30 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Declaração CODHAB</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #64748b;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --background-color: #f8fafc;
+            --surface-color: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,40 +32,63 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            color: var(--text-primary);
             position: relative;
             overflow-x: hidden;
         }
 
-        /* Floating background shapes */
-        .floating-shape {
+        body::before {
+            content: '';
             position: fixed;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            animation: float 6s ease-in-out infinite;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('images/Fundo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
             z-index: 0;
         }
 
-        .shape-1 {
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
             width: 80px;
             height: 80px;
-            top: 10%;
+            top: 20%;
             left: 10%;
             animation-delay: 0s;
         }
 
-        .shape-2 {
+        .shape:nth-child(2) {
             width: 120px;
             height: 120px;
-            top: 70%;
+            top: 60%;
             right: 10%;
             animation-delay: 2s;
         }
 
-        .shape-3 {
+        .shape:nth-child(3) {
             width: 60px;
             height: 60px;
             bottom: 20%;
@@ -62,57 +104,63 @@
         .container {
             max-width: 900px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            padding: 40px;
+            padding: 2rem;
             position: relative;
             z-index: 1;
-            animation: slideUp 0.8s ease-out;
         }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .main-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
         }
 
         .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 2rem;
             text-align: center;
-            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+            opacity: 0.1;
         }
 
         .header h1 {
-            color: #2d3748;
             font-size: 2.5rem;
             font-weight: 700;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
         }
 
         .header p {
-            color: #718096;
             font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
         }
 
-        .form-container {
-            margin-bottom: 30px;
+        .form-content {
+            padding: 2rem;
         }
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .form-group {
@@ -120,388 +168,521 @@
             flex-direction: column;
         }
 
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-
         .form-group label {
-            color: #2d3748;
             font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .form-group input,
-        .form-group select,
-        .form-group textarea {
-            padding: 12px;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
+        .form-group select {
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1rem;
             transition: all 0.3s ease;
-            background: white;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 80px;
+            background: var(--surface-color);
+            font-family: inherit;
         }
 
         .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
+        .form-group select:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            transform: translateY(-1px);
         }
 
         .button-group {
             display: flex;
-            gap: 15px;
+            gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
+            margin-top: 2rem;
         }
 
         .btn {
-            padding: 12px 24px;
+            padding: 0.875rem 2rem;
             border: none;
-            border-radius: 8px;
-            font-family: 'Inter', sans-serif;
+            border-radius: 12px;
+            font-size: 1rem;
             font-weight: 600;
-            font-size: 14px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 0.5rem;
+            font-family: inherit;
+            min-width: 140px;
+            justify-content: center;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
             color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
         .btn-success {
-            background: linear-gradient(135deg, #48bb78, #38a169);
+            background: linear-gradient(135deg, var(--success-color), #059669);
             color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
         .btn-danger {
-            background: linear-gradient(135deg, #f56565, #e53e3e);
+            background: linear-gradient(135deg, var(--danger-color), #dc2626);
             color: white;
+            box-shadow: var(--shadow-md);
         }
 
-        .btn:hover {
+        .btn-danger:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #resultado {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: var(--background-color);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
         }
 
         #declaracao-content {
-            display: none;
             background: white;
-            padding: 40px;
-            margin-top: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            position: relative;
-            font-family: 'Times New Roman', serif;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
             line-height: 1.6;
         }
 
-        .watermark {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0.1;
-            width: 300px;
-            height: auto;
-            z-index: 0;
+        #declaracao-content p {
+            margin-bottom: 1rem;
         }
 
-        .cabecalho {
-            text-align: center;
-            font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 30px;
-            position: relative;
-            z-index: 1;
+        #declaracao-content strong {
+            color: var(--text-primary);
         }
 
-        .cabecalho p {
-            margin: 5px 0;
+        .year-fields-container {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--background-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
         }
 
-        .conteudo {
-            position: relative;
-            z-index: 1;
-            font-size: 14px;
-            text-align: justify;
-            margin-bottom: 40px;
+        .year-fields-container label {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: block;
         }
 
-        .assinatura {
-            text-align: center;
-            margin-top: 60px;
-            position: relative;
-            z-index: 1;
+        .year-fields-container select {
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--surface-color);
+            font-family: inherit;
+            width: 100%;
+            margin-bottom: 1rem;
         }
 
-        .linha-assinatura {
-            border-top: 1px solid #000;
-            width: 300px;
-            margin: 0 auto 10px;
+        .year-fields-container select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            transform: translateY(-1px);
         }
 
-        /* Responsividade */
+        .dynamic-field-group {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            border: 1px solid rgba(37, 99, 235, 0.1);
+        }
+
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
             .container {
-                padding: 20px;
-                margin: 10px;
+                padding: 1rem;
             }
-            
+
             .header h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
-            
+
             .form-grid {
                 grid-template-columns: 1fr;
-                gap: 15px;
             }
-            
+
             .button-group {
                 flex-direction: column;
-                gap: 10px;
+                align-items: center;
             }
-            
+
             .btn {
                 width: 100%;
-                justify-content: center;
-            }
-            
-            .floating-shape {
-                display: none;
+                max-width: 300px;
             }
         }
-        
-        @media (max-width: 480px) {
-            .container {
-                padding: 15px;
-                border-radius: 15px;
-            }
-            
-            .header h1 {
-                font-size: 1.5rem;
-            }
-            
-            .form-group input,
-            .form-group select,
-            .form-group textarea {
-                padding: 10px;
-                font-size: 16px;
-            }
-            
-            .btn {
-                padding: 15px;
-                font-size: 16px;
-            }
-        }
-        
+
         @media print {
             body {
                 background: white;
             }
-            
-            .container {
-                box-shadow: none;
-                background: white;
+
+            .floating-shapes,
+            .header,
+            .form-content,
+            .button-group {
+                display: none;
             }
-            
-            .form-container,
-            .button-group,
+
+            #resultado {
+                display: block !important;
+                margin: 0;
+                padding: 0;
+                background: white;
+                border: none;
+            }
+
+            #declaracao-content {
+                box-shadow: none;
+                padding: 1rem;
+            }
+
             .no-print {
                 display: none !important;
-            }
-            
-            #declaracao-content {
-                display: block !important;
-                box-shadow: none;
-                margin: 0;
-                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="floating-shape shape-1"></div>
-    <div class="floating-shape shape-2"></div>
-    <div class="floating-shape shape-3"></div>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
 
     <div class="container">
-        <div class="header">
+        <div class="main-card">
             <div class="header">
-                <h1>🏠 Declaração CODHAB</h1>
+                <h1><i class="fas fa-file-alt"></i> Declaração CODHAB</h1>
                 <p class="no-print">Preencha os dados abaixo para gerar a declaração</p>
             </div>
 
-        <div class="form-container">
             <form id="declaracao-form" onsubmit="event.preventDefault(); gerarDeclaracao();">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="nome">Nome Completo:</label>
-                        <input type="text" id="nome" name="nome" placeholder="Digite o nome completo" required>
+                <div class="form-content">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="nome_aluno"><i class="fas fa-user"></i> Nome do Aluno:</label>
+                            <input type="text" id="nome_aluno" name="nome_aluno" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="data_nascimento"><i class="fas fa-calendar-alt"></i> Data de Nascimento:</label>
+                            <input type="date" id="data_nascimento" name="data_nascimento" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cidade_estado"><i class="fas fa-map-marker-alt"></i> Cidade/Estado:</label>
+                            <input type="text" id="cidade_estado" name="cidade_estado" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nome_mae"><i class="fas fa-female"></i> Nome da Mãe:</label>
+                            <input type="text" id="nome_mae" name="nome_mae" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nome_pai"><i class="fas fa-male"></i> Nome do Pai:</label>
+                            <input type="text" id="nome_pai" name="nome_pai" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="endereco"><i class="fas fa-home"></i> Endereço:</label>
+                            <input type="text" id="endereco" name="endereco" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="data_matricula"><i class="fas fa-calendar-check"></i> Data de Matrícula:</label>
+                            <input type="date" id="data_matricula" name="data_matricula" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="anos_cursados"><i class="fas fa-graduation-cap"></i> Anos Cursados:</label>
+                            <select id="anos_cursados" name="anos_cursados" onchange="showYearFields()" required>
+                                <option value="">Selecione</option>
+                                <option value="1">1 ano</option>
+                                <option value="2">2 anos</option>
+                                <option value="3">3 anos</option>
+                                <option value="4">4 anos</option>
+                                <option value="5">5 anos</option>
+                                <option value="6">6 anos</option>
+                                <option value="7">7 anos</option>
+                                <option value="8">8 anos</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="rg">RG:</label>
-                        <input type="text" id="rg" name="rg" placeholder="Digite o RG" required>
-                    </div>
+                    <div id="year-fields" class="year-fields-container hidden"></div>
 
-                    <div class="form-group">
-                        <label for="cpf">CPF:</label>
-                        <input type="text" id="cpf" name="cpf" placeholder="Digite o CPF" required>
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-file-alt"></i> Gerar Declaração
+                        </button>
+                        <button type="button" class="btn btn-success" onclick="imprimir()">
+                            <i class="fas fa-print"></i> Imprimir
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="gerarPDF()">
+                            <i class="fas fa-file-pdf"></i> Gerar PDF
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="window.close()">
+                            <i class="fas fa-arrow-left"></i> Voltar
+                        </button>
                     </div>
-
-                    <div class="form-group">
-                        <label for="endereco">Endereço:</label>
-                        <input type="text" id="endereco" name="endereco" placeholder="Digite o endereço completo" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="data-nascimento">Data de Nascimento:</label>
-                        <input type="date" id="data-nascimento" name="data-nascimento" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="estado-civil">Estado Civil:</label>
-                        <select id="estado-civil" name="estado-civil" required>
-                            <option value="">Selecione</option>
-                            <option value="Solteiro(a)">Solteiro(a)</option>
-                            <option value="Casado(a)">Casado(a)</option>
-                            <option value="Divorciado(a)">Divorciado(a)</option>
-                            <option value="Viúvo(a)">Viúvo(a)</option>
-                            <option value="União Estável">União Estável</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group full-width">
-                        <label for="observacao">Observações:</label>
-                        <textarea id="observacao" name="observacao" placeholder="Digite observações adicionais (opcional)" rows="3"></textarea>
-                    </div>
-                </div>
-
-                <div class="button-group">
-                    <button type="submit" class="btn btn-primary">📋 Gerar Declaração</button>
-                    <button type="button" onclick="imprimirDeclaracao()" class="btn btn-success">🖨️ Imprimir</button>
-                    <button type="button" onclick="gerarPDF()" class="btn btn-danger">📄 Gerar PDF</button>
-                    <button type="button" onclick="window.close()" class="btn btn-secondary">🏠 Voltar</button>
                 </div>
             </form>
-        </div>
 
-        <div id="declaracao-content">
-            <!-- Marca d'água -->
-            <img src="images/logomarca.png" class="watermark" alt="Marca d'água">
-            
-            <div class="cabecalho">
-                GOVERNO DO DISTRITO FEDERAL
-                <p>SECRETARIA DE ESTADO DE EDUCAÇÃO</p>
-                <p>COORDENAÇÃO REGIONAL DE ENSINO DE SAMAMBAIA</p>
-                <p>CENTRO DE ENSINO FUNDAMENTAL 411 DE SAMAMBAIA</p>
-            </div>
-
-            <div class="conteudo">
-                <h3 style="text-align: center; margin-bottom: 30px;">DECLARAÇÃO</h3>
-                
-                <p style="margin-bottom: 20px;">
-                    Declaro para os devidos fins que <strong><span id="nomeDeclaracao"></span></strong>, 
-                    portador(a) do RG nº <strong><span id="rgDeclaracao"></span></strong> e CPF nº <strong><span id="cpfDeclaracao"></span></strong>, 
-                    nascido(a) em <strong><span id="nascimentoDeclaracao"></span></strong>, 
-                    estado civil <strong><span id="estadoCivilDeclaracao"></span></strong>, 
-                    residente no endereço <strong><span id="enderecoDeclaracao"></span></strong>, 
-                    é responsável por aluno(a) regularmente matriculado(a) nesta Unidade de Ensino.
-                </p>
-                
-                <div id="observacaoDeclaracao" style="margin-bottom: 20px; display: none;">
-                    <p><strong>Observações:</strong></p>
-                    <p style="margin-left: 20px;"><span id="textoObservacao"></span></p>
+            <div id="resultado" class="hidden">
+                <div id="declaracao-content">
+                    <h2>DECLARAÇÃO DE ESCOLARIDADE</h2>
+                    <br>
+                    <p>Declaro para os devidos fins que <strong><span id="output-nome-aluno"></span></strong>, nascido(a) em <strong><span id="output-data-nascimento"></span></strong>, natural de <strong><span id="output-cidade-estado"></span></strong>, filho(a) de <strong><span id="output-nome-mae"></span></strong> e <strong><span id="output-nome-pai"></span></strong>, residente em <strong><span id="output-endereco"></span></strong>, esteve matriculado(a) nesta Instituição de Ensino em <strong><span id="output-data-matricula"></span></strong>.</p>
+                    
+                    <p><strong>Anos cursados:</strong></p>
+                    <p><span id="output-ano-cursado"></span></p>
+                    
+                    <p>Declaro ainda que o(a) referido(a) aluno(a) encontra-se em situação regular perante esta Instituição.</p>
+                    
+                    <br>
+                    <p>Brasília, <span id="data-atual"></span></p>
+                    
+                    <br><br>
+                    <p>_________________________________</p>
+                    <p><strong>Direção da Escola</strong></p>
                 </div>
-                
-                <p style="margin-bottom: 40px;">
-                    Por ser verdade, firmo a presente declaração.
-                </p>
-                
-                <p style="text-align: right; margin-bottom: 60px;">
-                    Samambaia/DF, <span id="dataAtual"></span>
-                </p>
-            </div>
-
-            <div class="assinatura">
-                <div class="linha-assinatura"></div>
-                <p><strong>Direção</strong></p>
-                <p>Centro de Ensino Fundamental 411 de Samambaia</p>
             </div>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
-        function gerarDeclaracao() {
-            const nome = document.getElementById('nome').value;
-            const rg = document.getElementById('rg').value;
-            const cpf = document.getElementById('cpf').value;
-            const endereco = document.getElementById('endereco').value;
-            const dataNascimento = document.getElementById('data-nascimento').value;
-            const estadoCivil = document.getElementById('estado-civil').value;
-            const observacao = document.getElementById('observacao').value;
-            
-            // Preencher a declaração
-            document.getElementById('nomeDeclaracao').textContent = nome;
-            document.getElementById('rgDeclaracao').textContent = rg;
-            document.getElementById('cpfDeclaracao').textContent = cpf;
-            document.getElementById('enderecoDeclaracao').textContent = endereco;
-            document.getElementById('estadoCivilDeclaracao').textContent = estadoCivil;
-            
-            // Formatar data de nascimento
-            const nascimentoFormatado = new Date(dataNascimento).toLocaleDateString('pt-BR');
-            document.getElementById('nascimentoDeclaracao').textContent = nascimentoFormatado;
-            
-            // Data atual
-            const hoje = new Date().toLocaleDateString('pt-BR');
-            document.getElementById('dataAtual').textContent = hoje;
-            
-            // Observações
-            if (observacao.trim()) {
-                document.getElementById('observacaoDeclaracao').style.display = 'block';
-                document.getElementById('textoObservacao').textContent = observacao;
-            } else {
-                document.getElementById('observacaoDeclaracao').style.display = 'none';
-            }
-            
-            document.getElementById('declaracao-content').style.display = 'block';
+        // Helper function to format date to dd/mm/yyyy
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
         }
 
-        function imprimirDeclaracao() {
-            window.print();
+        function showYearFields() {
+            const anosCursados = document.getElementById('anos_cursados').value;
+            const yearFieldsContainer = document.getElementById('year-fields');
+
+            yearFieldsContainer.innerHTML = '';
+
+            if (anosCursados) {
+                for (let i = 1; i <= anosCursados; i++) {
+                    // Criar container para cada grupo de campos
+                    const fieldGroup = document.createElement('div');
+                    fieldGroup.className = 'dynamic-field-group';
+
+                    // Ano
+                    const anoLabel = document.createElement('label');
+                    anoLabel.innerHTML = `<i class="fas fa-calendar"></i> Ano ${i}:`;
+                    const anoSelect = document.createElement('select');
+                    anoSelect.setAttribute('id', `ano_${i}`);
+                    anoSelect.setAttribute('name', `ano_${i}`);
+                    anoSelect.required = true;
+
+                    anoSelect.innerHTML = `
+                        <option value="">Selecione o Ano</option>
+                        ${Array.from({ length: 56 }, (_, index) => 1970 + index).map(year => `<option value="${year}">${year}</option>`).join('')}
+                    `;
+
+                    // Nível Educacional
+                    const nivelLabel = document.createElement('label');
+                    nivelLabel.innerHTML = `<i class="fas fa-graduation-cap"></i> Nível Educacional ${i}:`;
+                    const nivelSelect = document.createElement('select');
+                    nivelSelect.setAttribute('id', `nivel_educacional_${i}`);
+                    nivelSelect.setAttribute('name', `nivel_educacional_${i}`);
+                    nivelSelect.setAttribute('onchange', `showSeriesOptions(${i})`);
+                    nivelSelect.required = true;
+
+                    nivelSelect.innerHTML = `
+                        <option value="">Selecione</option>
+                        <option value="EJA">Educação de Jovens e Adultos</option>
+                        <option value="EF8">Ensino Fundamental de 8 anos</option>
+                        <option value="EF9">Ensino Fundamental de 9 anos</option>
+                    `;
+
+                    // Série/Etapa
+                    const etapaLabel = document.createElement('label');
+                    etapaLabel.innerHTML = `<i class="fas fa-list"></i> Ano/Série/Etapa ${i}:`;
+                    const etapaSelect = document.createElement('select');
+                    etapaSelect.setAttribute('id', `etapa_${i}`);
+                    etapaSelect.setAttribute('name', `etapa_${i}`);
+                    etapaSelect.required = true;
+
+                    const defaultEtapaOption = document.createElement('option');
+                    defaultEtapaOption.value = '';
+                    defaultEtapaOption.textContent = 'Selecione a Série/Etapa';
+                    etapaSelect.appendChild(defaultEtapaOption);
+
+                    // Adicionar elementos ao grupo
+                    fieldGroup.appendChild(anoLabel);
+                    fieldGroup.appendChild(anoSelect);
+                    fieldGroup.appendChild(nivelLabel);
+                    fieldGroup.appendChild(nivelSelect);
+                    fieldGroup.appendChild(etapaLabel);
+                    fieldGroup.appendChild(etapaSelect);
+
+                    // Adicionar grupo ao container
+                    yearFieldsContainer.appendChild(fieldGroup);
+                }
+                yearFieldsContainer.classList.remove('hidden');
+            } else {
+                yearFieldsContainer.classList.add('hidden');
+            }
+        }
+
+        function showSeriesOptions(index) {
+            const nivelEducacional = document.getElementById(`nivel_educacional_${index}`).value;
+            const etapaSelect = document.getElementById(`etapa_${index}`);
+
+            etapaSelect.innerHTML = `<option value="">Selecione a Série/Etapa</option>`;
+
+            if (nivelEducacional === 'EJA') {
+                etapaSelect.innerHTML += `
+                    <option value="1ª etapa - 3º segmento">1ª etapa - 3º segmento</option>
+                    <option value="2ª etapa - 3º segmento">2ª etapa - 3º segmento</option>
+                    <option value="3ª etapa - 3º segmento">3ª etapa - 3º segmento</option>
+                `;
+            } else if (nivelEducacional === 'EF8') {
+                etapaSelect.innerHTML += `
+                    <option value="5ª série">5ª série</option>
+                    <option value="6ª série">6ª série</option>
+                    <option value="7ª série">7ª série</option>
+                    <option value="8ª série">8ª série</option>
+                    <option value="ASF">Classe de Aceleração</option>
+                `;
+            } else if (nivelEducacional === 'EF9') {
+                etapaSelect.innerHTML += `
+                    <option value="6º ano">6º ano</option>
+                    <option value="7º ano">7º ano</option>
+                    <option value="8º ano">8º ano</option>
+                    <option value="9º ano">9º ano</option>
+                    <option value="CF">Correção de Fluxo</option>
+                `;
+            }
+        }
+
+        function gerarDeclaracao() {
+            const nomeAluno = document.getElementById('nome_aluno').value;
+            const dataNascimento = formatDate(document.getElementById('data_nascimento').value);
+            const cidadeEstado = document.getElementById('cidade_estado').value;
+            const nomeMae = document.getElementById('nome_mae').value;
+            const nomePai = document.getElementById('nome_pai').value;
+            const endereco = document.getElementById('endereco').value;
+            const dataMatricula = formatDate(document.getElementById('data_matricula').value);
+
+            const anosCursados = document.getElementById('anos_cursados').value;
+            let outputAnoCursado = '';
+
+            for (let i = 1; i <= anosCursados; i++) {
+                const ano = document.getElementById(`ano_${i}`).value;
+                const nivelEducacional = document.getElementById(`nivel_educacional_${i}`).value;
+                const etapa = document.getElementById(`etapa_${i}`).value;
+
+                outputAnoCursado += `${ano} - ${nivelEducacional} (${etapa})<br>`;
+            }
+
+            const dataEmissao = new Date().toLocaleDateString('pt-BR');
+
+            document.getElementById('output-nome-aluno').textContent = nomeAluno;
+            document.getElementById('output-data-nascimento').textContent = dataNascimento;
+            document.getElementById('output-cidade-estado').textContent = cidadeEstado;
+            document.getElementById('output-nome-mae').textContent = nomeMae;
+            document.getElementById('output-nome-pai').textContent = nomePai;
+            document.getElementById('output-endereco').textContent = endereco;
+            document.getElementById('output-data-matricula').textContent = dataMatricula;
+            document.getElementById('output-ano-cursado').innerHTML = outputAnoCursado;
+            document.getElementById('data-atual').textContent = dataEmissao;
+
+            document.getElementById('resultado').classList.remove('hidden');
+        }
+
+        function imprimir() {
+            const content = document.getElementById('declaracao-content').innerHTML;
+            const printWindow = window.open('', '', 'height=600,width=800');
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Imprimir Declaração</title>
+                        <style>
+                            body { font-family: 'Inter', sans-serif; margin: 0; padding: 20px; }
+                            #declaracao-content { width: 100%; }
+                            h2, p { text-align: center; }
+                            @media print {
+                                @page {
+                                    size: A4;
+                                    margin: 20mm;
+                                }
+                            }
+                        </style>
+                    </head>
+                    <body>${content}</body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.onload = function() {
+                printWindow.print();
+            };
         }
 
         function gerarPDF() {
-            const elemento = document.getElementById('declaracao-content');
-            const opt = {
-                margin: 1,
-                filename: 'declaracao_codhab.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
-            
-            html2pdf().set(opt).from(elemento).save();
+            const element = document.getElementById('declaracao-content');
+            html2pdf()
+                .set({
+                    margin: 10,
+                    filename: 'declaracao_codhab.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                })
+                .from(element)
+                .save();
         }
     </script>
 </body>
