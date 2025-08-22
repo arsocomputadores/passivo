@@ -349,12 +349,12 @@ if (isset($_POST['submit'])) {
 
         .modal-content {
             background-color: #fefefe;
-            margin: 5% auto;
+            margin: 3% auto;
             padding: 0;
             border-radius: 20px;
-            width: 90%;
-            max-width: 1000px;
-            max-height: 80vh;
+            width: 95%;
+            max-width: 1200px;
+            max-height: 85vh;
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             animation: modalSlideIn 0.3s ease-out;
@@ -644,7 +644,7 @@ if (isset($_POST['submit'])) {
 
     <div class="container">
         <div class="header">
-            <h1><i class="fas fa-search"></i> Consulta Passivo CEF 411 de Samambaia</h1>
+            <h1><i class="fas fa-search"></i> CEF 411 de Samambaia</h1>
         </div>
         
         <div class="main-content">
@@ -671,13 +671,13 @@ if (isset($_POST['submit'])) {
             <div class="search-section">
                 <div class="search-title">
                     <i class="fas fa-search"></i>
-                    Buscar Aluno
+                    Buscar Aluno do Passivo
                 </div>
                 <form method="POST" class="search-form">
                     <div class="form-group">
                         <label for="nome">
                             <i class="fas fa-user"></i>
-                            Nome do Aluno
+                            Nome do Aluno:
                         </label>
                         <input type="text" 
                                id="nome"
@@ -690,7 +690,7 @@ if (isset($_POST['submit'])) {
                     <div class="form-group">
                         <label for="data_nascimento">
                             <i class="fas fa-calendar-alt"></i>
-                            Data de Nascimento
+                            Data de Nascimento:
                         </label>
                         <input type="text" 
                                id="data_nascimento"
