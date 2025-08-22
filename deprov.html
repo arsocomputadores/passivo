@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEPROV - Declaração Provisória</title>
+    <style>
+        @media print {
+            body { 
+                margin: 0;
+                padding: 0;
+                width: 210mm;
+                height: 297mm;
+                font-size: 11px;
+            }
+            @page {
+                size: A4;
+                margin: 10mm;
+            }
+            
+            .header {
+                margin-bottom: 5px;
+            }
+            
+            .header h3 {
+                font-size: 13px;
+                margin: 2px 0;
+            }
+
+            .titulo-principal {
+                font-size: 13px;
+                margin: 5px 0;
+            }
+
+            table {
+                margin: 3px 0;
+            }
+
+            td, th {
+                padding: 2px;
+                font-size: 11px;
+            }
+
+            .assinatura {
+                margin-top: 15px;
+                padding-right: 30px;
+            }
+
+            .logo {
+                width: 55px;
+                height: 75px;
+                margin-right: 10px;
+            }
+
+            input, select {
+                padding: 2px;
+                font-size: 11px;
+            }
+
+            .assinatura div {
+                margin-top: 10px;
+            }
+        }
+        select {
+            padding-right: 0;  /* Remove space for arrow */
+        }
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 210mm;
+            margin: 20px auto;
+            padding: 15px;
+            font-size: 11px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .logo {
+            width: 70px;
+            height: 90px;
+            margin-right: 10px;
+        }
+
+        table {
+            margin: 4px 0;
+        }
+
+        td, th {
+            padding: 2px;
+            font-size: 11px;
+        }
+
+        .assinatura {
+            margin-top: 15px;
+        }
+
+        .titulo-principal {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        .header h3 {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .header p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .logo {
+            width: 80px;
+            height: 100px;
+            margin-right: 15px;
+        }
+
+        .titulo-principal {
+            text-align: center;
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 5px 0;
+        }
+
+        td, th {
+            border: 1px solid #000;
+            padding: 3px;
+            vertical-align: top;
+            font-size: 12px;
+        }
+
+        .bold { font-weight: bold; }
+
+        .assinatura {
+            margin-top: 20px;
+            text-align: right;
+            padding-right: 100px;
+        }
+
+        input, select {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            padding: 4px;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            background: #f0f8ff;
+        }
+
+        .print-button {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 20px 0;
+        }
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .action-button {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .action-button.blue {
+            background: #3498db;
+        }
+
+        .action-button.red {
+            background: #e74c3c;
+        }
+
+        .action-button:hover {
+            opacity: 0.9;
+        }
+
+        .no-print {
+            display: block;
+        }
+
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="images/gdf.png" class="logo" alt="Logo GDF">
+        <div>
+            <h3>GDF - SECRETARIA DE ESTADO DE EDUCAÇÃO DO DISTRITO FEDERAL</h3>
+            <h3>Centro de Ensino Fundamental 411 de Samambaia</h3>
+        </div>
+    </div>
+
+    <h2 class="titulo-principal">DECLARAÇÃO PROVISÓRIA PARA TRANSFERÊNCIA DO ALUNO - DEPROV</h2>
+
+    <table>
+        <tr><th colspan="2">DADOS DA INSTITUIÇÃO:</th></tr>
+        <tr>
+            <td width="50%">
+                <span class="bold">Instituição Educacional: <input type="text" value="Centro de Ensino Fundamental 411 de Samambaia" style="width: 40%;"></span><br>
+                <span class="bold">Portaria: <input type="text" value="Nº 003 de 12/01/2004" style="width: 40%;"></span><br>
+                <span class="bold">Endereço: <input type="text" value="QN 411 Área Especial 1 - Samambaia - DF" style="width: 40%;"></span><br>
+                <span class="bold">Bairro: <input type="text" value="Samambaia Norte - DF - CEP: 72321-549" style="width: 40%;"></span><br>
+                <span class="bold">Telefone: <input type="text" value="(61) 3318-2454" style="width: 40%;"></span>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <th align="left">Dados do aluno(a):</th>
+            <th align="left">Código do(a) aluno(a):</th>
+        </tr>
+        <tr>
+            <td>Nome do(a) aluno(a): <input type="text"></td>
+            <td>Matrícula/Código: <input type="text"></td>
+        </tr>
+        <tr>
+            <td>Data de Nascimento: <input type="date"></td>
+            <td>Sexo: 
+                <select>
+                    <option value=""></option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Feminino</option>
+                    <option value="NB">Não-binário</option>
+                    <option value="O">Outro</option>
+                    <option value="NI">Prefiro não informar</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Nacionalidade: <input type="text"></td>
+            <td>Naturalidade: <input type="text"></td>
+        </tr>
+    </table>
+
+    <table>
+        <tr><th colspan="2">DADOS DO CURSO:</th></tr>
+        <tr>
+            <td>
+                Modalidade de Ensino: <br>
+                <select id="modalidade" onchange="updateSeries()">
+                    <option value="">Selecione</option>
+                    <option value="EF8">Ensino Fundamental - 08 anos</option>
+                    <option value="EF9">Ensino Fundamental - 09 anos</option>
+                    <option value="EJA">Ensino Médio - EJA</option>
+                </select>
+                Série: <select id="serie"><option value="">Selecione a Modalidade</option></select><br>
+                Turma: 
+                <select>
+                    <option value="">Selecione</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="G">G</option>
+                    <option value="H">H</option>
+                    <option value="I">I</option>
+                    <option value="J">J</option>
+                </select>
+                Turno:
+                    <select>
+                        <option value=""></option>
+                        <option>Matutino</option>
+                        <option>Vespertino</option>
+                        <option>Noturno</option>
+                    </select>    
+                Período Letivo: 
+                <select id="periodo_letivo">
+                    <option value=""></option>
+                </select>
+            </td>
+
+<!-- Update the script section -->
+<script>
+    // Generate years from 1990 to current year for Período Letivo
+    const periodoSelect = document.getElementById('periodo_letivo');
+    const currentYear = new Date().getFullYear();
+    for (let year = currentYear; year >= 1990; year--) {
+        const option = new Option(year.toString(), year.toString());
+        periodoSelect.add(option);
+    }
+</script>
+
+<!-- Add this script at the end of the file, before the closing </body> tag -->
+<script>
+    function updateSeries() {
+        const modalidade = document.getElementById('modalidade').value;
+        const serieSelect = document.getElementById('serie');
+        serieSelect.innerHTML = ''; // Clear existing options
+
+        if (modalidade === 'EF8') {
+            const series = ['5ª série', '6ª série', '7ª série', '8ª série'];
+            series.forEach(serie => {
+                const option = new Option(serie, serie);
+                serieSelect.add(option);
+            });
+        } else if (modalidade === 'EF9') {
+            const series = ['6º ano', '7º ano', '8º ano', '9º ano'];
+            series.forEach(serie => {
+                const option = new Option(serie, serie);
+                serieSelect.add(option);
+            });
+        } else if (modalidade === 'EJA') {
+            const series = ['3º segmento - 1ª etapa', '3º segmento - 2ª etapa', '3º segmento - 3ª etapa'];
+            series.forEach(serie => {
+                const option = new Option(serie, serie);
+                serieSelect.add(option);
+            });
+        } else {
+            serieSelect.add(new Option('Selecione a Modalidade', ''));
+        }
+    }
+</script>
+        </tr>
+    </table>
+
+    <table>
+        <tr><th>Dados Complementares:</th></tr>
+        <tr><td>Situação: 
+            <select>
+                <option>Novo</option>
+                <option>Transferido</option>
+                <option>Repetente</option>
+                <option>Desistente</option>
+                <option>Outros</option>
+            </select>
+        </td></tr>
+    </table>
+
+    <table>
+        <tr><th colspan="2">DADOS PARA TRANSFERÊNCIA:</th></tr>
+        <tr>
+            <td colspan="2">
+                O(A) aluno(a) deverá ser matriculado(a) no(a): <br>
+                Etapa: 
+                <select>
+                    <option value=""></option>
+                    <option value="EJA">3º Segmento - 1ª Etapa</option>
+                    <option value="EJA">3º Segmento - 2ª Etapa</option>
+                    <option value="EJA">3º Segmento - 3ª Etapa</option>
+                </select><br>
+                Série/Ano:
+                <select>
+                    <option value=""></option>
+                    <option value="EF8">5ª Série</option>
+                    <option value="EF8">6ª Série</option>
+                    <option value="EF8">7ª Série</option>
+                    <option value="EF8">8ª Série</option>
+                    <option value="EF9">6º Ano</option>
+                    <option value="EF9">7º Ano</option>
+                    <option value="EF9">8º Ano</option>
+                    <option value="EF9">9º Ano</option>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr><th>INFORMAÇÕES COMPLEMENTARES:</th></tr>
+        <tr><td><input type="text"></td></tr>
+    </table>
+
+    <div class="assinatura">
+        <p>Em: <input type="date" style="width: 150px;"></p>
+        <div style="text-align: center; margin-top: 20px;">
+            ________________________________
+            <br>
+            <span>Assinatura Diretor(a)</span>
+        </div>
+        <div style="text-align: center; margin-top: 20px;"><br>
+            ________________________________
+            <br>
+            <span>Assinatura Secretário(a)</span>
+        </div>
+
+    </div>
+
+    <script>
+        // Preenche a data atual automaticamente
+        document.querySelector('input[type="date"]').valueAsDate = new Date();
+    </script>
+
+    <div class="button-container no-print">
+        <button class="action-button blue" onclick="gerarDeclaracao()">Gerar Declaração</button>
+        <button class="action-button" onclick="window.print()">Imprimir</button>
+        <button class="action-button red" onclick="gerarPDF()">Gerar PDF</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        function gerarDeclaracao() {
+            // Get all input and select elements
+            const inputs = document.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                if (input.type !== 'button') {
+                    input.readOnly = true;
+                    if (input.tagName === 'SELECT') {
+                        input.disabled = true;
+                    }
+                }
+            });
+        }
+
+        function gerarPDF() {
+            window.print();
+        }
+
+        // Initialize date fields with current date
+        document.querySelectorAll('input[type="date"]').forEach(input => {
+            input.valueAsDate = new Date();
+        });
+    </script>
+</body>
+</html>
+
+        /* Adicionar após as regras @media print existentes */
+        
+        /* Responsividade para tela */
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .container {
+                padding: 15px;
+                margin: 5px;
+            }
+            
+            .header {
+                text-align: center;
+            }
+            
+            .header h3 {
+                font-size: 14px;
+                margin: 5px 0;
+            }
+            
+            .titulo-principal {
+                font-size: 16px;
+                text-align: center;
+            }
+            
+            table {
+                width: 100%;
+                font-size: 12px;
+            }
+            
+            td, th {
+                padding: 5px 2px;
+                word-wrap: break-word;
+            }
+            
+            .logo {
+                width: 40px;
+                height: auto;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 20px;
+            }
+            
+            .btn {
+                width: 100%;
+                padding: 12px;
+                font-size: 14px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 5px;
+                font-size: 12px;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .header h3 {
+                font-size: 12px;
+            }
+            
+            .titulo-principal {
+                font-size: 14px;
+            }
+            
+            table {
+                font-size: 10px;
+            }
+            
+            td, th {
+                padding: 3px 1px;
+            }
+            
+            .btn {
+                padding: 15px;
+                font-size: 16px;
+            }
+        }

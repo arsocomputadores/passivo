@@ -1,0 +1,6 @@
+
+            <div class="novo-cadastro-section">
+                <button class="btn btn-search" onclick="window.location.href='Cadastro.php'">
+                    Novo Cadastro
+                </button>
+            </div>

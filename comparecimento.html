@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Declaração de Comparecimento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Floating background shapes */
+        .floating-shape {
+            position: fixed;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        .shape-1 {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 120px;
+            height: 120px;
+            top: 70%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape-3 {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+
+        .form-container {
+            margin-bottom: 30px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            color: #2d3748;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #f56565, #e53e3e);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        #declaracao {
+            display: none;
+            background: white;
+            padding: 40px;
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+        }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.1;
+            width: 300px;
+            height: auto;
+            z-index: 0;
+        }
+
+        .cabecalho {
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cabecalho p {
+            margin: 5px 0;
+        }
+
+        .conteudo {
+            position: relative;
+            z-index: 1;
+            font-size: 14px;
+            text-align: justify;
+            margin-bottom: 40px;
+        }
+
+        .assinatura {
+            text-align: center;
+            margin-top: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .linha-assinatura {
+            border-top: 1px solid #000;
+            width: 300px;
+            margin: 0 auto 10px;
+        }
+
+        /* Adicionar após o CSS existente, antes do </style> */
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .floating-shape {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                border-radius: 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 10px;
+                font-size: 16px; /* Evita zoom no iOS */
+            }
+            
+            .btn {
+                padding: 15px;
+                font-size: 16px;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .container {
+                box-shadow: none;
+                background: white;
+            }
+            
+            .form-container,
+            .button-group {
+                display: none;
+            }
+            
+            #declaracao {
+                display: block !important;
+                box-shadow: none;
+                margin: 0;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+    <div class="floating-shape shape-3"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1>📋 Declaração de Comparecimento</h1>
+            <p>Preencha os dados abaixo para gerar a declaração</p>
+        </div>
+
+        <div class="form-container">
+            <form id="declaracaoForm" onsubmit="gerarDeclaracao(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="responsavel">Nome do Responsável:</label>
+                        <input type="text" id="responsavel" name="responsavel" placeholder="Digite o nome do responsável" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="menor">Nome do Aluno:</label>
+                        <input type="text" id="menor" name="menor" placeholder="Digite o nome do aluno" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="serie">Série:</label>
+                        <select id="serie" name="serie" required>
+                            <option value="">Selecione a série</option>
+                            <option value="6º ANO">6º Ano</option>
+                            <option value="7º ANO">7º Ano</option>
+                            <option value="8º ANO">8º Ano</option>
+                            <option value="9º ANO">9º Ano</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="turma">Turma:</label>
+                        <select id="turma" name="turma" required>
+                            <option value="">Selecione a turma</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="data">Data:</label>
+                        <input type="date" id="data" name="data" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="periodo">Período:</label>
+                        <select id="periodo" name="periodo" required>
+                            <option value="">Selecione</option>
+                            <option value="MATUTINO">Matutino</option>
+                            <option value="VESPERTINO">Vespertino</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="observacao">Observações:</label>
+                        <textarea id="observacao" name="observacao" placeholder="Digite observações adicionais (opcional)" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary">📄 Gerar Declaração</button>
+                    <button type="button" onclick="imprimirDeclaracao()" class="btn btn-success">🖨️ Imprimir</button>
+                    <button type="button" onclick="gerarPDF()" class="btn btn-danger">📁 Gerar PDF</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="declaracao">
+            <!-- Marca d'água -->
+            <img src="images/logomarca.png" class="watermark" alt="Marca d'água">
+            
+            <div class="cabecalho">
+                GOVERNO DO DISTRITO FEDERAL
+                <p>SECRETARIA DE ESTADO DE EDUCAÇÃO</p>
+                <p>COORDENAÇÃO REGIONAL DE ENSINO DE SAMAMBAIA</p>
+                <p>CENTRO DE ENSINO FUNDAMENTAL 411 DE SAMAMBAIA</p>
+            </div>
+
+            <div class="conteudo">
+                <h3 style="text-align: center; margin-bottom: 30px;">DECLARAÇÃO</h3>
+                
+                <p style="margin-bottom: 20px;">
+                    Declaro para os devidos fins que <strong><span id="nomeResponsavel"></span></strong>, 
+                    responsável pelo(a) aluno(a) <strong><span id="nomeAluno"></span></strong>, 
+                    da <strong><span id="serieAluno"></span></strong>, turma <strong><span id="turmaAluno"></span></strong>, 
+                    do período <strong><span id="periodoAluno"></span></strong>, 
+                    compareceu a esta Unidade de Ensino no dia <strong><span id="dataComparecimento"></span></strong>.
+                </p>
+                
+                <div id="observacaoDeclaracao" style="margin-bottom: 20px; display: none;">
+                    <p><strong>Observações:</strong></p>
+                    <p style="margin-left: 20px;"><span id="textoObservacao"></span></p>
+                </div>
+                
+                <p style="margin-bottom: 40px;">
+                    Por ser verdade, firmo a presente declaração.
+                </p>
+                
+                <p style="text-align: right; margin-bottom: 60px;">
+                    Samambaia/DF, <span id="dataAtual"></span>
+                </p>
+            </div>
+
+            <div class="assinatura">
+                <div class="linha-assinatura"></div>
+                <p><strong>Direção</strong></p>
+                <p>Centro de Ensino Fundamental 411 de Samambaia</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        // Preencher turmas baseado na série
+        document.getElementById('serie').addEventListener('change', function() {
+            const turmaSelect = document.getElementById('turma');
+            const serie = this.value;
+            
+            turmaSelect.innerHTML = '<option value="">Selecione a turma</option>';
+            
+            if (serie) {
+                const turmas = ['A', 'B', 'C', 'D', 'E'];
+                turmas.forEach(turma => {
+                    const option = document.createElement('option');
+                    option.value = turma;
+                    option.textContent = turma;
+                    turmaSelect.appendChild(option);
+                });
+            }
+        });
+
+        function gerarDeclaracao(event) {
+            event.preventDefault();
+            
+            const responsavel = document.getElementById('responsavel').value;
+            const menor = document.getElementById('menor').value;
+            const serie = document.getElementById('serie').value;
+            const turma = document.getElementById('turma').value;
+            const data = document.getElementById('data').value;
+            const periodo = document.getElementById('periodo').value;
+            const observacao = document.getElementById('observacao').value;
+            
+            // Preencher a declaração
+            document.getElementById('nomeResponsavel').textContent = responsavel;
+            document.getElementById('nomeAluno').textContent = menor;
+            document.getElementById('serieAluno').textContent = serie;
+            document.getElementById('turmaAluno').textContent = turma;
+            document.getElementById('periodoAluno').textContent = periodo;
+            
+            // Formatar data
+            const dataFormatada = new Date(data).toLocaleDateString('pt-BR');
+            document.getElementById('dataComparecimento').textContent = dataFormatada;
+            
+            // Data atual
+            const hoje = new Date().toLocaleDateString('pt-BR');
+            document.getElementById('dataAtual').textContent = hoje;
+            
+            // Observações
+            if (observacao.trim()) {
+                document.getElementById('observacaoDeclaracao').style.display = 'block';
+                document.getElementById('textoObservacao').textContent = observacao;
+            } else {
+                document.getElementById('observacaoDeclaracao').style.display = 'none';
+            }
+            
+            document.getElementById('declaracao').style.display = 'block';
+        }
+
+        function imprimirDeclaracao() {
+            window.print();
+        }
+
+        function gerarPDF() {
+            const elemento = document.getElementById('declaracao');
+            const opt = {
+                margin: 1,
+                filename: 'declaracao_comparecimento.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            
+            html2pdf().set(opt).from(elemento).save();
+        }
+    </script>
+</body>
+</html>

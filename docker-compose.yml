@@ -1,0 +1,35 @@
+
+services:
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: passivo
+      MYSQL_DATABASE: passivo
+      MYSQL_USER: dbuser
+      MYSQL_PASSWORD: dbpassivo
+    networks:
+      - default
+    ports:
+      - "3306:3306"
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    networks:
+      - default
+    depends_on:
+      - mysql
+
+networks:
+  default:
+    name: localdev
+
+volumes:
+  db_data:
