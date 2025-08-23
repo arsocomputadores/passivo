@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico Escolar do Ensino Fundamental</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @media print {
+            body { 
+                margin: 0;
+                padding: 0;
+                width: 210mm;
+                height: 297mm;
+                font-size: 10px;
+            }
+            @page {
+                size: A4;
+                margin: 8mm;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .header {
+                margin-bottom: 3px;
+            }
+            .header h3 {
+                font-size: 11px;
+                margin: 1px 0;
+            }
+            .titulo-principal {
+                font-size: 12px;
+                margin: 3px 0;
+            }
+            table {
+                margin: 2px 0;
+            }
+            td, th {
+                padding: 1px;
+                font-size: 9px;
+            }
+            .logo {
+                width: 45px;
+                height: 55px;
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 10px;
+            font-size: 11px;
+            line-height: 1.2;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            border: 2px solid #000;
+            padding: 5px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 75px;
+            margin-right: 10px;
+        }
+
+        .header-text {
+            flex: 1;
+            text-align: center;
+        }
+
+        .header h3 {
+            font-size: 13px;
+            margin: 2px 0;
+            font-weight: bold;
+        }
+
+        .titulo-principal {
+            text-align: center;
+            margin: 8px 0;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .subtitle {
+            text-align: right;
+            font-size: 10px;
+            margin: 5px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 3px 0;
+        }
+
+        td, th {
+            border: 1px solid #000;
+            padding: 2px;
+            vertical-align: top;
+            font-size: 10px;
+        }
+
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .bold { 
+            font-weight: bold; 
+        }
+
+        input, select {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            padding: 1px;
+            font-size: 10px;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            background: #f0f8ff;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+
+        .center-text {
+            text-align: center;
+        }
+
+        .small-text {
+            font-size: 9px;
+        }
+
+        .no-print {
+            display: block;
+        }
+
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="images/gdf.png" class="logo" alt="Logo GDF">
+        <div class="header-text">
+            <h3>GDF - SECRETARIA DE ESTADO DE EDUCAÇÃO DO DISTRITO FEDERAL</h3>
+            <h3>CENTRO DE ENSINO FUNDAMENTAL 411 DE SAMAMBAIA</h3>
+            <p>SETOR EDUCACIONAL SUL LOTE M-Planaltina-Planaltina-DF (61)3901-4474 e (61)3901-4547</p>
+        </div>
+    </div>
+
+    <h2 class="titulo-principal">HISTÓRICO ESCOLAR DO ENSINO FUNDAMENTAL - ANOS* / SÉRIES FINAIS</h2>
+    
+    <div class="subtitle">
+        <p>ATO DE CREDENCIAMENTO: PORTARIA Nº 003 DE 12/01/2004 ÓRGÃO: SEE-DF</p>
+        <p>RECONHECIMENTO: RESOLUÇÃO Nº 14.947/94 OBSERVÂNCIA ÀS DISPOSIÇÕES DA LEI Nº 9394/1996</p>
+    </div>
+
+    <form id="historico-form" onsubmit="event.preventDefault(); gerarHistorico();">
+        <!-- Dados do Aluno -->
+        <table>
+            <tr>
+                <td class="bold" width="15%">MATRÍCULA:</td>
+                <td width="20%"><input type="text" id="matricula"></td>
+                <td class="bold" width="10%">NOME:</td>
+                <td width="35%"><input type="text" id="nome"></td>
+                <td class="bold" width="10%">RG:</td>
+                <td width="10%"><input type="text" id="rg"></td>
+            </tr>
+            <tr>
+                <td class="bold">NATURAL IDADE:</td>
+                <td><input type="text" id="naturalidade"></td>
+                <td class="bold">NATURALIDADE/UF:</td>
+                <td><input type="text" id="naturalidade_uf"></td>
+                <td class="bold">SEXO:</td>
+                <td>
+                    <select id="sexo">
+                        <option value=""></option>
+                        <option value="M">M</option>
+                        <option value="F">F</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    
+        <!-- Certificação -->
+        <table>
+            <tr>
+                <td class="bold" colspan="6">CERTIFICAMOS QUE O (A) ALUNO PODERÁ MATRICULAR-SE NO(A):</td>
+            </tr>
+            <tr>
+                <td class="bold" width="30%">SÉRIE DO ENSINO FUNDAMENTAL DE 9 ANOS:</td>
+                <td width="15%"><input type="text" id="serie_9anos"></td>
+                <td class="bold" width="25%">SÉRIE DO ENSINO MÉDIO:</td>
+                <td width="15%"><input type="text" id="serie_medio"></td>
+                <td class="bold" width="15%">INEP:</td>
+                <td><input type="text" id="inep"></td>
+            </tr>
+        </table>
+
+        <!-- Componentes Curriculares -->
+        <table>
+            <tr>
+                <th rowspan="2">Componentes Curriculares</th>
+                <th colspan="2">CAA<br>6º/5º ANOS</th>
+                <th colspan="2">7º/6º ANOS</th>
+                <th colspan="2">8º/7º ANOS</th>
+                <th colspan="2">9º/8º ANOS</th>
+            </tr>
+            <tr>
+                <th>M/CH</th>
+                <th>F</th>
+                <th>M/CH</th>
+                <th>F</th>
+                <th>M/CH</th>
+                <th>F</th>
+                <th>M/CH</th>
+                <th>F</th>
+            </tr>
+            <tr>
+                <td class="bold">ENSINO RELIGIOSO</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="bold">LÍNGUA PORTUGUESA</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="bold">MATEMÁTICA</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="bold">LÍNGUA ESTRANGEIRA MODERNA</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="bold">EDUCAÇÃO FÍSICA</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="bold">ARTE</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="bold">CIÊNCIAS NATURAIS</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="bold">EDUCAÇÃO FÍSICA</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="bold">GEOGRAFIA</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="bold">HISTÓRIA</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="bold">LÍNGUA PORTUGUESA</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="bold">MATEMÁTICA</td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="bold">TOTAL DE DIAS LETIVOS</td>
+                <td><input type="text"></td>
+                <td></td>
+                <td><input type="text"></td>
+                <td></td>
+                <td><input type="text"></td>
+                <td></td>
+                <td><input type="text"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="bold">TOTAL DE CARGA HORÁRIA</td>
+                <td><input type="text"></td>
+                <td></td>
+                <td><input type="text"></td>
+                <td></td>
+                <td><input type="text"></td>
+                <td></td>
+                <td><input type="text"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="bold">TOTAL FALTAS EM H/R</td>
+                <td><input type="text"></td>
+                <td></td>
+                <td><input type="text"></td>
+                <td></td>
+                <td><input type="text"></td>
+                <td></td>
+                <td><input type="text"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="bold">FALTAS EM H/A</td>
+                <td><input type="text"></td>
+                <td></td>
+                <td><input type="text"></td>
+                <td></td>
+                <td><input type="text"></td>
+                <td></td>
+                <td><input type="text"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="bold">RESULTADO FINAL</td>
+                <td><input type="text"></td>
+                <td></td>
+                <td><input type="text"></td>
+                <td></td>
+                <td><input type="text"></td>
+                <td></td>
+                <td><input type="text"></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <!-- Histórico Escolar -->
+        <table>
+            <tr>
+                <th>ANO LETIVO</th>
+                <th>ANO / SÉRIE</th>
+                <th>INSTITUIÇÃO EDUCACIONAL</th>
+                <th>CIDADE - UF</th>
+            </tr>
+            <tr>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+        </table>
+
+        <!-- Fases de Formação -->
+        <table>
+            <tr>
+                <th colspan="4">FASES DE FORMAÇÃO DA ESCOLA CANDIDATA - TURMAS DE REINTEGRAÇÃO (PARECER Nº 36/97 - CEDF)</th>
+            </tr>
+            <tr>
+                <th>FASE</th>
+                <th>ANO</th>
+                <th>IDADE</th>
+                <th>CH</th>
+                <th>FALTAS</th>
+                <th>RF</th>
+                <th>INSTITUIÇÃO EDUCACIONAL</th>
+                <th>CIDADE - UF</th>
+            </tr>
+            <tr>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+        </table>
+
+        <!-- Informações Complementares -->
+        <table>
+            <tr>
+                <th>INFORMAÇÕES COMPLEMENTARES:</th>
+            </tr>
+            <tr>
+                <td style="height: 60px; vertical-align: top;">
+                    <textarea style="width: 100%; height: 55px; border: none; resize: none; font-family: inherit; font-size: 10px;"></textarea>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Convenções e Legendas -->
+        <table>
+            <tr>
+                <th>CONVENÇÕES E LEGENDAS:</th>
+            </tr>
+            <tr>
+                <td class="small-text">
+                    CAA: Classe de Aceleração da Aprendizagem; M/CH: Menção / Conceito ou Nota; CH: Carga Horária;<br>
+                    *F: Freqüência; RF: Resultado Final; APROVADO; RF: Reprovado; CH: Reprovado; TR: Transferido; RF: Transferido; TR: Turmas de Reintegração.
+                </td>
+            </tr>
+        </table>
+
+        <!-- Assinaturas -->
+        <table>
+            <tr>
+                <td width="33%" class="center-text">
+                    <br><br>
+                    DATA<br>
+                    <input type="date" style="text-align: center;">
+                </td>
+                <td width="33%" class="center-text">
+                    <br><br>
+                    ___________________________<br>
+                    SECRETÁRIO(A)
+                </td>
+                <td width="34%" class="center-text">
+                    <br><br>
+                    ___________________________<br>
+                    DIRETOR(A)
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <!-- Botões -->
+    <div class="btn-group no-print">
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-file-alt"></i> Gerar Histórico
+        </button>
+        <button type="button" class="btn btn-success" onclick="imprimir()">
+            <i class="fas fa-print"></i> Imprimir
+        </button>
+        <button type="button" class="btn btn-danger" onclick="gerarPDF()">
+            <i class="fas fa-file-pdf"></i> Gerar PDF
+        </button>
+        <button type="button" class="btn btn-secondary" onclick="window.close()">
+            <i class="fas fa-arrow-left"></i> Voltar
+        </button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        function gerarHistorico() {
+            // Capturar dados do formulário
+            const dados = {
+                matricula: document.getElementById('matricula').value,
+                nome: document.getElementById('nome').value,
+                rg: document.getElementById('rg').value,
+                naturalidade: document.getElementById('naturalidade').value,
+                naturalidade_uf: document.getElementById('naturalidade_uf').value,
+                sexo: document.getElementById('sexo').value,
+                serie_9anos: document.getElementById('serie_9anos').value,
+                serie_medio: document.getElementById('serie_medio').value,
+                inep: document.getElementById('inep').value
+            };
+
+            // Validação básica
+            if (!dados.nome || !dados.matricula) {
+                alert('Por favor, preencha pelo menos o nome e a matrícula do aluno.');
+                return;
+            }
+
+            alert('Histórico escolar gerado com sucesso!');
+        }
+
+        function imprimir() {
+            window.print();
+        }
+
+        function gerarPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Configurar fonte
+            doc.setFontSize(12);
+            doc.text('HISTÓRICO ESCOLAR DO ENSINO FUNDAMENTAL', 20, 20);
+            
+            // Adicionar dados básicos
+            const nome = document.getElementById('nome').value || '[Nome não informado]';
+            const matricula = document.getElementById('matricula').value || '[Matrícula não informada]';
+            
+            doc.setFontSize(10);
+            doc.text(`Nome: ${nome}`, 20, 40);
+            doc.text(`Matrícula: ${matricula}`, 20, 50);
+            
+            // Salvar PDF
+            doc.save('historico-escolar.pdf');
+        }
+    </script>
+</body>
+</html>
