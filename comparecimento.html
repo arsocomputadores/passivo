@@ -341,6 +341,34 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="serie">Série:</label>
+                    <select id="serie" name="serie" required onchange="updateTurmas()">
+                        <option value="">Selecione a série</option>
+                        <option value="6º ano">6º ano</option>
+                        <option value="7º ano">7º ano</option>
+                        <option value="8º ano">8º ano</option>
+                        <option value="9º ano">9º ano</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="turma">Turma:</label>
+                    <select id="turma" name="turma" required>
+                        <option value="">Selecione a turma</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="periodo">Período:</label>
+                    <select id="periodo" name="periodo" required>
+                        <option value="">Selecione o período</option>
+                        <option value="Matutino">Matutino</option>
+                        <option value="Vespertino">Vespertino</option>
+                        <option value="Noturno">Noturno</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="data_nascimento">Data de Nascimento:</label>
                     <input type="date" id="data_nascimento" name="data_nascimento" required>
                 </div>
@@ -383,6 +411,9 @@
                 <button type="button" class="btn btn-danger" onclick="gerarPDF()">
                     <i class="fas fa-file-pdf"></i> Gerar PDF
                 </button>
+                <button type="button" class="btn btn-secondary" onclick="window.close()">
+                    <i class="fas fa-arrow-left"></i> Voltar
+                </button>
             </div>
 
             <div id="resultado" class="hidden">
@@ -393,8 +424,17 @@
                     <p style="text-align: center;">CENTRO DE ENSINO FUNDAMENTAL 411 DE SAMAMBAIA</p>
                     <p style="text-align: center;">TEL.: 3318-2454</p><br><br><br>
                     <strong><p style="text-align: center;">DECLARAÇÃO DE COMPARECIMENTO</p></strong><br><br><br>
-                    <p style="text-align: justify;">Declaro para os devidos fins que o(a) Sr.(a) <strong><span id="output-nome-responsavel"></span></strong>, responsável pelo(a) aluno(a) <strong><span id="output-nome-aluno"></span></strong>, nascido(a) em <span id="output-data-nascimento"></span>, compareceu a esta Unidade Escolar no dia <span id="output-data-comparecimento"></span>, às <span id="output-horario-comparecimento"></span>, para <span id="output-motivo"></span>.</p>
-                    <p style="text-align: justify;">Por ser expressão da verdade, firmo a presente declaração.</p><br><br><br><br>
+                    <p style="text-align: justify;">Declaramos para os devidos fins que: <strong><span id="output-nome-responsavel"></span></strong>, responsável pelo(a) aluno(a) <strong><span id="output-nome-aluno"></span></strong>, série <strong><span id="output-serie"></span></strong>, turma <strong><span id="output-turma"></span></strong>, compareceu a esta Instituição Pública de Ensino na data de <strong><span id="output-data-comparecimento"></span></strong>, no período <strong><span id="output-periodo"></span></strong>, para tratar de assuntos relacionados à vida escolar do(a) aluno(a).</p>
+                    <p style="text-align: justify;">Por ser expressão da verdade, firmo a presente declaração.</p>
+                    
+                    <div style="font-style: italic; margin-top: 20px; font-size: 0.9em; line-height: 1.4;">
+                        <p style="text-align: justify;"><strong>Lei nº 449 de 17 de maio de 1993:</strong></p>
+                        <p style="text-align: justify; margin-left: 20px;">Parágrafo 1º - O Governador autoriza a instituir Abono bimestral para pais e/ou responsáveis de crianças em idade escolar.</p>
+                        <p style="text-align: justify; margin-left: 20px;">Parágrafo 2º - O abono é concedido para o prazo em que se realize as reuniões, mediante declaração expedida pelos colégios.</p>
+                        <p style="text-align: justify; margin-left: 20px;">Parágrafo 3º - O pai ou responsável por crianças que frequentem turnos diferentes só terá um turno abonado por bimestre.</p>
+                    </div>
+                    
+                    <br><br><br><br>
                     <p style="text-align: right;">Samambaia - DF, <span id="data-atual"></span></p><br>
                     <div style="text-align: center; margin-top: 50px;">
                         ________________________________
@@ -417,6 +457,41 @@
             return `${day}/${month}/${year}`;
         }
 
+        function updateTurmas() {
+            const serie = document.getElementById('serie').value;
+            const turmaSelect = document.getElementById('turma');
+            
+            // Limpar opções existentes
+            turmaSelect.innerHTML = '<option value="">Selecione a turma</option>';
+            
+            let turmas = [];
+            
+            switch(serie) {
+                case '6º ano':
+                    turmas = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+                    break;
+                case '7º ano':
+                    turmas = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+                    break;
+                case '8º ano':
+                    turmas = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+                    break;
+                case '9º ano':
+                    turmas = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+                    break;
+                default:
+                    turmas = [];
+            }
+            
+            // Adicionar as turmas correspondentes
+            turmas.forEach(function(turma) {
+                const option = document.createElement('option');
+                option.value = turma;
+                option.textContent = turma;
+                turmaSelect.appendChild(option);
+            });
+        }
+
         function gerarDeclaracao() {
             const nomeAluno = document.getElementById('nome_aluno').value;
             const dataNascimento = formatDate(document.getElementById('data_nascimento').value);
@@ -424,7 +499,10 @@
             const dataComparecimento = formatDate(document.getElementById('data_comparecimento').value);
             const horarioComparecimento = document.getElementById('horario_comparecimento').value;
             const motivo = document.getElementById('motivo').value;
-
+            const serie = document.getElementById('serie').value;
+            const turma = document.getElementById('turma').value;
+            const periodo = document.getElementById('periodo').value;
+            
             const dataEmissao = new Date().toLocaleDateString('pt-BR');
 
             document.getElementById('output-nome-aluno').textContent = nomeAluno;
@@ -433,6 +511,9 @@
             document.getElementById('output-data-comparecimento').textContent = dataComparecimento;
             document.getElementById('output-horario-comparecimento').textContent = horarioComparecimento;
             document.getElementById('output-motivo').textContent = motivo;
+            document.getElementById('output-serie').textContent = serie;
+            document.getElementById('output-turma').textContent = turma;
+            document.getElementById('output-periodo').textContent = periodo;
             document.getElementById('data-atual').textContent = dataEmissao;
 
             document.getElementById('resultado').classList.remove('hidden');

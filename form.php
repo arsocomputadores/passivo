@@ -300,9 +300,9 @@ if (isset($_GET['id'])) {
 }
 ?>
 <body>
-    <a href="home.php" class="back-btn">
+    <button type="button" class="back-btn" onclick="fecharPagina()">
         <i class="fas fa-arrow-left"></i> Voltar
-    </a>
+    </button>
     
     <div class="form-container">
         <div class="form-header">
@@ -363,22 +363,15 @@ if (isset($_GET['id'])) {
     </div>
 
     <script>
-        // Efeito de foco nos inputs
-        const inputs = document.querySelectorAll('input[type="text"], input[type="date"], input[type="number"]');
-        inputs.forEach(input => {
-            input.addEventListener('focus', function() {
-                this.parentElement.style.transform = 'scale(1.02)';
-            });
-            
-            input.addEventListener('blur', function() {
-                this.parentElement.style.transform = 'scale(1)';
-            });
-        });
-
-        // Animação de entrada
-        window.addEventListener('load', function() {
-            document.querySelector('.form-container').style.animation = 'slideUp 0.8s ease-out';
-        });
+        function fecharPagina() {
+            // Tenta fechar a janela/aba
+            if (window.opener) {
+                window.close();
+            } else {
+                // Se não conseguir fechar, volta para a página anterior
+                window.history.back();
+            }
+        }
     </script>
 </body>
 </html>

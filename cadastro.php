@@ -117,11 +117,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cadastrar'])) {
                     <button type="submit" name="cadastrar" class="btn-submit">
                         Cadastrar
                     </button>
-                    <a href="index.php" class="btn-voltar">Voltar para Consulta</a>
+                    <button type="button" class="btn-voltar" onclick="fecharPagina()">
+                        Voltar para Consulta
+                    </button>
                 </div>
             </form>
         </div>
         <div class="signature">Desenvolvido por André Ricardo</div>
     </div>
+    <script>
+        function fecharPagina() {
+            // Tenta fechar a janela/aba
+            if (window.opener) {
+                window.close();
+            } else {
+                // Se não conseguir fechar, volta para a página anterior
+                window.history.back();
+            }
+        }
+    </script>
 </body>
-</html> 
+</html>
