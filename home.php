@@ -644,7 +644,7 @@ if (isset($_POST['submit'])) {
 
     <div class="container">
         <div class="header">
-            <h1><i class="fas fa-search"></i> CEF 411 de Samambaia</h1>
+            <h1><img src="images/logomarca.png" alt="Logo" style="height: 5.5rem; vertical-align: middle; margin-right: 10px;"> CEF 411 de Samambaia</h1>
         </div>
         
         <div class="main-content">

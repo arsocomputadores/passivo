@@ -159,7 +159,21 @@
             color: var(--text-dark);
         }
 
-        input:focus, select:focus {
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--white);
+            color: var(--text-dark);
+            resize: vertical;
+            min-height: 80px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        input:focus, select:focus, textarea:focus {
             outline: none;
             border-color: var(--primary-blue);
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
@@ -399,6 +413,11 @@
                         <option value="Outros">Outros</option>
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="observacoes">Observações (opcional):</label>
+                    <textarea id="observacoes" name="observacoes" rows="3" placeholder="Digite observações adicionais, se necessário..."></textarea>
+                </div>
             </div>
 
             <div class="btn-group">
@@ -427,6 +446,9 @@
                     <p style="text-align: justify;">Declaramos para os devidos fins que: <strong><span id="output-nome-responsavel"></span></strong>, responsável pelo(a) aluno(a) <strong><span id="output-nome-aluno"></span></strong>, série <strong><span id="output-serie"></span></strong>, turma <strong><span id="output-turma"></span></strong>, compareceu a esta Instituição Pública de Ensino na data de <strong><span id="output-data-comparecimento"></span></strong>, no período <strong><span id="output-periodo"></span></strong>, para tratar de assuntos relacionados à vida escolar do(a) aluno(a).</p>
                     <p style="text-align: justify;">Por ser expressão da verdade, firmo a presente declaração.</p>
                     
+                    <div id="observacoes-section" style="margin-top: 20px;">
+                        <!-- Observações serão inseridas aqui via JavaScript -->
+                    </div>
                     <div style="font-style: italic; margin-top: 20px; font-size: 0.9em; line-height: 1.4;">
                         <p style="text-align: justify;"><strong>Lei nº 449 de 17 de maio de 1993:</strong></p>
                         <p style="text-align: justify; margin-left: 20px;">Parágrafo 1º - O Governador autoriza a instituir Abono bimestral para pais e/ou responsáveis de crianças em idade escolar.</p>
@@ -502,6 +524,7 @@
             const serie = document.getElementById('serie').value;
             const turma = document.getElementById('turma').value;
             const periodo = document.getElementById('periodo').value;
+            const observacoes = document.getElementById('observacoes').value;
             
             const dataEmissao = new Date().toLocaleDateString('pt-BR');
 
@@ -515,6 +538,17 @@
             document.getElementById('output-turma').textContent = turma;
             document.getElementById('output-periodo').textContent = periodo;
             document.getElementById('data-atual').textContent = dataEmissao;
+
+            // Adicionar observações se preenchidas
+            const observacoesSection = document.getElementById('observacoes-section');
+            if (observacoes.trim()) {
+                observacoesSection.innerHTML = `
+                    <p style="text-align: justify; margin-top: 15px;"><strong>Observações:</strong></p>
+                    <p style="text-align: justify; font-style: italic;">${observacoes}</p>
+                `;
+            } else {
+                observacoesSection.innerHTML = '';
+            }
 
             document.getElementById('resultado').classList.remove('hidden');
         }
