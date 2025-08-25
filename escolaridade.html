@@ -530,7 +530,10 @@
                     </div>
                 `;
             }
-
+        
+            // ESTA LINHA ESTAVA FALTANDO - inserir o conteúdo no elemento HTML
+            document.getElementById('declaracao-content').innerHTML = conteudoDeclaracao;
+        
             // Adicionar observações se preenchidas
             const observacoesSection = document.getElementById('observacoes-section');
             if (observacoes.trim()) {
@@ -541,7 +544,7 @@
             } else {
                 observacoesSection.innerHTML = '';
             }
-
+        
             document.getElementById('resultado').classList.remove('hidden');
         }
 

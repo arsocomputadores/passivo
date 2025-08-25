@@ -178,17 +178,7 @@
         }
 
         .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: var(--surface-color);
-            color: var(--text-primary);
-        }
-
+        .form-group select,
         .form-group textarea {
             width: 100%;
             padding: 12px 16px;
@@ -283,121 +273,202 @@
         }
 
         #declaracao-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: var(--shadow-sm);
-            line-height: 1.6;
+            background: var(--surface-color);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+        }
+
+        #declaracao-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            text-align: center;
         }
 
         #declaracao-content p {
-            margin-bottom: 1rem;
+            margin: 10px 0;
+            line-height: 1.6;
+            color: var(--text-primary);
         }
 
         #declaracao-content strong {
-            color: var(--text-primary);
+            color: var(--primary-dark);
         }
 
         .year-fields-container {
             margin-top: 1rem;
-            padding: 1rem;
-            background: var(--background-color);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
         }
 
-        .year-fields-container label {
+        .dynamic-field-group {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .dynamic-field-group h4 {
+            color: var(--primary-dark);
+            margin-bottom: 0;
+            font-size: 1.1rem;
+        }
+
+        .dynamic-field-group .field-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dynamic-field-group label {
             font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 0.5rem;
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            display: block;
         }
 
-        .year-fields-container select {
-            padding: 0.875rem 1rem;
+        .dynamic-field-group select,
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
             border: 2px solid var(--border-color);
-            border-radius: 12px;
+            border-radius: 8px;
             font-size: 1rem;
             transition: all 0.3s ease;
             background: var(--surface-color);
-            font-family: inherit;
-            width: 100%;
-            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 48px;
+            box-sizing: border-box;
         }
 
-        .year-fields-container select:focus {
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .dynamic-field-group select:focus,
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
             transform: translateY(-1px);
         }
 
-        .dynamic-field-group {
-            display: flex;
-            flex-direction: column;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 8px;
-            border: 1px solid rgba(37, 99, 235, 0.1);
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .button-group {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn {
-                width: 100%;
-                max-width: 300px;
-            }
-        }
-
         @media print {
             body {
                 background: white;
-            }
-
-            .floating-shapes,
-            .header,
-            .form-content,
-            .button-group {
-                display: none;
-            }
-
-            #resultado {
-                display: block !important;
                 margin: 0;
                 padding: 0;
-                background: white;
-                border: none;
             }
-
-            #declaracao-content {
-                box-shadow: none;
-                padding: 1rem;
-            }
-
-            .no-print {
+            
+            .floating-shapes,
+            .button-group,
+            .no-print,
+            .dynamic-field-group,
+            .year-fields-container,
+            .form-content,
+            .header {
                 display: none !important;
+            }
+            
+            .container {
+                background: white;
+                box-shadow: none;
+                border: none;
+                margin: 0;
+                padding: 0;
+                max-width: none;
+            }
+            
+            .main-card {
+                background: white !important;
+                box-shadow: none !important;
+                border: none !important;
+                border-radius: 0 !important;
+            }
+            
+            @page {
+                size: A4;
+                margin: 20mm;
+            }
+            
+            #resultado {
+                margin: 0 !important;
+                padding: 0 !important;
+                background: white !important;
+                border: none !important;
+                border-radius: 0 !important;
+            }
+            
+            #declaracao-content {
+                background: white !important;
+                position: relative;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                font-family: 'Times New Roman', serif;
+                font-size: 12pt;
+                line-height: 1.5;
+                max-width: none;
+                color: black !important;
+                border: none !important;
+                border-radius: 0 !important;
+            }
+            
+            #declaracao-content::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: url('images/logomarca.png') no-repeat center center;
+                background-size: 300px;
+                opacity: 0.1;
+                z-index: -1;
+            }
+            
+            #declaracao-content h2 {
+                font-size: 14pt;
+                margin-bottom: 1.5rem;
+                color: black !important;
+                font-weight: bold !important;
+                text-align: center;
+            }
+            
+            #declaracao-content p {
+                margin-bottom: 0.8rem;
+                font-size: 12pt;
+                color: black !important;
+                line-height: 1.5;
+            }
+            
+            #declaracao-content strong {
+                color: black !important;
+                font-weight: bold !important;
+            }
+            
+            #declaracao-content span {
+                color: black !important;
+                font-weight: normal !important;
+            }
+            
+            #declaracao-content * {
+                color: black !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
         }
     </style>
@@ -479,7 +550,7 @@
 
                     <div class="button-group">
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-file-alt"></i> Gerar Declaração
+                            <i class="fas fa-file-text"></i> Gerar Declaração
                         </button>
                         <button type="button" class="btn btn-success" onclick="imprimir()">
                             <i class="fas fa-print"></i> Imprimir
@@ -496,25 +567,30 @@
 
             <div id="resultado" class="hidden">
                 <div id="declaracao-content">
-                    <h2>DECLARAÇÃO DE ESCOLARIDADE</h2>
-                    <br>
-                    <p>Declaro para os devidos fins que <strong><span id="output-nome-aluno"></span></strong>, nascido(a) em <strong><span id="output-data-nascimento"></span></strong>, natural de <strong><span id="output-cidade-estado"></span></strong>, filho(a) de <strong><span id="output-nome-mae"></span></strong> e <strong><span id="output-nome-pai"></span></strong>, residente em <strong><span id="output-endereco"></span></strong>, esteve matriculado(a) nesta Instituição de Ensino em <strong><span id="output-data-matricula"></span></strong>.</p>
+                    <p style="text-align: center;">GOVERNO DO DISTRITO FEDERAL</p>
+                    <p style="text-align: center;">SECRETARIA DE ESTADO DE EDUCAÇÃO</p>
+                    <p style="text-align: center;">COORDENAÇÃO REGIONAL DE ENSINO DE SAMAMBAIA</p>
+                    <p style="text-align: center;">CENTRO DE ENSINO FUNDAMENTAL 411 DE SAMAMBAIA</p>
+                    <p style="text-align: center;">TEL.: 3318-2454</p><br><br><br>
+                    <strong><p style="text-align: center;">DECLARAÇÃO TEMPO DE ESCOLARIDADE</p></strong><br><br><br>
+                    <p style="text-align: justify;">Declaro para os devidos fins que <strong><span id="output-nome-aluno"></span></strong>, nascido(a) em <strong><span id="output-data-nascimento"></span></strong>, natural de <strong><span id="output-cidade-estado"></span></strong>, filho(a) de <strong><span id="output-nome-mae"></span></strong> e <strong><span id="output-nome-pai"></span></strong>, residente em <strong><span id="output-endereco"></span></strong>, esteve matriculado(a) nesta Instituição de Ensino em <strong><span id="output-data-matricula"></span></strong>.</p>
                     
-                    <p><strong>Anos cursados:</strong></p>
-                    <p><span id="output-ano-cursado"></span></p>
+                    <p style="text-align: justify;"><strong>Anos cursados:</strong></p>
+                    <p style="text-align: justify;"><span id="output-ano-cursado"></span></p>
                     
-                    <p>Declaro ainda que o(a) referido(a) aluno(a) encontra-se em situação regular perante esta Instituição.</p>
+                    <p style="text-align: justify;">Declaro ainda que o(a) referido(a) aluno(a) encontra-se em situação regular perante esta Instituição.</p>
                     
-                    <div id="observacoes-section">
+                    <div id="observacoes-section" style="margin-top: 20px;">
                         <!-- Observações serão inseridas aqui via JavaScript -->
                     </div>
                     
-                    <br>
-                    <p>Brasília, <span id="data-atual"></span></p>
-                    
-                    <br><br>
-                    <p>_________________________________</p>
-                    <p><strong>Direção da Escola</strong></p>
+                    <br><br><br><br>
+                    <p style="text-align: right;">Samambaia - DF, <span id="data-atual"></span></p><br>
+                    <div style="text-align: center; margin-top: 50px;">
+                        ________________________________
+                        <br>
+                        <span>Secretário(a) Escolar</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -543,7 +619,15 @@
                     const fieldGroup = document.createElement('div');
                     fieldGroup.className = 'dynamic-field-group';
 
-                    // Ano
+                    // Título do grupo
+                    const title = document.createElement('h4');
+                    title.textContent = `Ano ${i}`;
+                    fieldGroup.appendChild(title);
+
+                    // Wrapper para Ano
+                    const anoWrapper = document.createElement('div');
+                    anoWrapper.className = 'field-wrapper';
+                    
                     const anoLabel = document.createElement('label');
                     anoLabel.innerHTML = `<i class="fas fa-calendar"></i> Ano ${i}:`;
                     const anoSelect = document.createElement('select');
@@ -556,7 +640,14 @@
                         ${Array.from({ length: 56 }, (_, index) => 1970 + index).map(year => `<option value="${year}">${year}</option>`).join('')}
                     `;
 
-                    // Nível Educacional
+                    anoWrapper.appendChild(anoLabel);
+                    anoWrapper.appendChild(anoSelect);
+                    fieldGroup.appendChild(anoWrapper);
+
+                    // Wrapper para Nível Educacional
+                    const nivelWrapper = document.createElement('div');
+                    nivelWrapper.className = 'field-wrapper';
+                    
                     const nivelLabel = document.createElement('label');
                     nivelLabel.innerHTML = `<i class="fas fa-graduation-cap"></i> Nível Educacional ${i}:`;
                     const nivelSelect = document.createElement('select');
@@ -572,7 +663,14 @@
                         <option value="EF9">Ensino Fundamental de 9 anos</option>
                     `;
 
-                    // Série/Etapa
+                    nivelWrapper.appendChild(nivelLabel);
+                    nivelWrapper.appendChild(nivelSelect);
+                    fieldGroup.appendChild(nivelWrapper);
+
+                    // Wrapper para Série/Etapa
+                    const etapaWrapper = document.createElement('div');
+                    etapaWrapper.className = 'field-wrapper';
+                    
                     const etapaLabel = document.createElement('label');
                     etapaLabel.innerHTML = `<i class="fas fa-list"></i> Ano/Série/Etapa ${i}:`;
                     const etapaSelect = document.createElement('select');
@@ -585,13 +683,9 @@
                     defaultEtapaOption.textContent = 'Selecione a Série/Etapa';
                     etapaSelect.appendChild(defaultEtapaOption);
 
-                    // Adicionar elementos ao grupo
-                    fieldGroup.appendChild(anoLabel);
-                    fieldGroup.appendChild(anoSelect);
-                    fieldGroup.appendChild(nivelLabel);
-                    fieldGroup.appendChild(nivelSelect);
-                    fieldGroup.appendChild(etapaLabel);
-                    fieldGroup.appendChild(etapaSelect);
+                    etapaWrapper.appendChild(etapaLabel);
+                    etapaWrapper.appendChild(etapaSelect);
+                    fieldGroup.appendChild(etapaWrapper);
 
                     // Adicionar grupo ao container
                     yearFieldsContainer.appendChild(fieldGroup);
