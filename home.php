@@ -657,13 +657,16 @@ if (isset($_POST['submit'])) {
                         <i class="fas fa-file-alt"></i> Emitir Declaração de Comparecimento
                     </button>
                     <button class="btn" onclick="emitirDeclaracaoCodhab()">
-                        <i class="fas fa-file-contract"></i> Emitir Declaração Codhab
+                        <i class="fas fa-graduation-cap"></i> Emitir Declaração Codhab
                     </button>
                     <button class="btn" onclick="emitirDeclaracaoEscolaridade()">
                         <i class="fas fa-graduation-cap"></i> Emitir Declaração de Escolaridade
                     </button>
                     <button class="btn" onclick="emitirDeclaracaoProvisoria()">
-                        <i class="fas fa-file-medical"></i> Emitir Declaração Provisória
+                        <i class="fas fa-graduation-cap"></i> Emitir Declaração Provisória
+                    </button>
+                    <button class="btn" onclick="emitirHeSgeEf()">
+                        <i class="fas fa-graduation-cap"></i> Emitir Histórico SGE EF (em construção)
                     </button>
                 </div>
             </div>
@@ -787,6 +790,9 @@ if (isset($_POST['submit'])) {
         
         function emitirDeclaracaoProvisoria() {
             window.open('deprov.html', '_blank');
+        }
+        function emitirHeSgeEf() {
+            window.open('hesge.html', '_blank');
         }
 
         function closeModal() {
