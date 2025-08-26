@@ -58,8 +58,83 @@ if (isset($_POST['submit'])) {
     $stmt->execute($params);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+// Remove redundant PHP opening tag since we're already in PHP context
+// Remove redundant PHP opening tag since we're already in PHP context
+// Verificar se há mensagens para exibir
+if (isset($_GET['msg'])) {
+    $msg = $_GET['msg'];
+    $showModal = true;
+    $modalContent = '';
+    $modalType = '';
+    
+    if ($msg === 'success') {
+        $passivo = isset($_GET['passivo']) ? $_GET['passivo'] : '';
+        $modalContent = 'Aluno cadastrado!<br><strong>Passivo: ' . number_format($passivo, 0, '', '.') . '</strong>';
+        $modalType = 'success';
+    } elseif ($msg === 'updated') {
+        $modalContent = 'Dados atualizados!';
+        $modalType = 'success';
+    } elseif ($msg === 'error') {
+        $details = isset($_GET['details']) ? $_GET['details'] : 'Erro desconhecido';
+        $modalContent = 'Erro: ' . htmlspecialchars($details);
+        $modalType = 'error';
+    }
+}
 ?>
 
+<!-- Modal de Confirmação Compacto -->
+<?php if (isset($showModal) && $showModal): ?>
+<div id="confirmationModal" class="modal-overlay">
+    <div class="modal-content-compact modal-<?php echo $modalType; ?>">
+        <div class="modal-icon">
+            <?php echo $modalType === 'success' ? '✅' : '❌'; ?>
+        </div>
+        <div class="modal-message">
+            <?php echo $modalContent; ?>
+        </div>
+        <button class="btn-close-compact" onclick="closeModalAndOpenForm()">Fechar</button>
+    </div>
+</div>
+
+<script>
+// Função para fechar o modal e abrir novo cadastro
+function closeModalAndOpenForm() {
+    const modal = document.getElementById('confirmationModal');
+    if (modal) {
+        modal.style.opacity = '0';
+        setTimeout(function() {
+            modal.style.display = 'none';
+            // Limpar a URL
+            const url = new URL(window.location);
+            url.searchParams.delete('msg');
+            url.searchParams.delete('passivo');
+            url.searchParams.delete('details');
+            window.history.replaceState({}, document.title, url.pathname);
+            
+            // Redirecionar para novo cadastro na mesma janela
+            window.location.href = 'form.php';
+        }, 200);
+    }
+}
+
+// Auto-fechar após 3 segundos e abrir novo cadastro
+setTimeout(function() {
+    closeModalAndOpenForm();
+}, 3000);
+
+// Fechar modal ao clicar fora dele
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('confirmationModal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModalAndOpenForm();
+            }
+        });
+    }
+});
+</script>
+<?php endif; ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -705,9 +780,16 @@ if (isset($_POST['submit'])) {
                                value="<?php echo isset($_POST['data_nascimento']) ? htmlspecialchars($_POST['data_nascimento']) : ''; ?>">
                     </div>
                     
-                    <button type="submit" name="submit">
-                        <i class="fas fa-search"></i> Buscar
-                    </button>
+                    <div class="form-buttons">
+                        <button type="submit" name="submit">
+                            <i class="fas fa-search"></i> Buscar
+                        </button>
+                        <?php if (!empty($result) || isset($_POST['submit'])): ?>
+                        <button type="button" class="btn-clear" onclick="limparBusca()">
+                            <i class="fas fa-eraser"></i> Limpar
+                        </button>
+                        <?php endif; ?>
+                    </div>
                 </form>
                 
                 <div class="search-info">
@@ -773,7 +855,7 @@ if (isset($_POST['submit'])) {
 
     <script>
         function novoCadastro() {
-            window.open('form.php', '_blank');
+            window.location.href = 'form.php';
         }
 
         function emitirDeclaracaoComparecimento() {
@@ -825,6 +907,20 @@ if (isset($_POST['submit'])) {
             
             e.target.value = value;
         });
+    </script>
+    
+    <script>
+        function limparBusca() {
+            // Limpar os campos do formulário
+            document.getElementById('nome').value = '';
+            document.getElementById('data_nascimento').value = '';
+            
+            // Fechar modal se estiver aberto
+            closeModal();
+            
+            // Recarregar a página para limpar os resultados
+            window.location.href = window.location.pathname;
+        }
     </script>
 </body>
 </html>

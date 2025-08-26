@@ -50,18 +50,67 @@ if (isset($_SESSION['login']) && $_SESSION['login'] === true) {
             50% { transform: translateY(-20px) rotate(2deg); }
         }
 
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: floatShapes 8s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes floatShapes {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px) rotate(0deg);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-30px) translateX(20px) rotate(180deg);
+                opacity: 1;
+            }
+        }
+
         .login-container {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 3rem 2.5rem;
             border-radius: 24px;
+            padding: 3rem;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             width: 100%;
             max-width: 420px;
             position: relative;
             z-index: 10;
-            border: 1px solid rgba(255, 255, 255, 0.2);
             animation: slideUp 0.8s ease-out;
         }
 
@@ -84,24 +133,21 @@ if (isset($_SESSION['login']) && $_SESSION['login'] === true) {
         .logo-icon {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1rem;
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-            animation: pulse 2s infinite;
+            margin: 0 auto 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .logo-icon i {
-            font-size: 2rem;
-            color: white;
+        .logo-icon img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
         }
 
         h2 {
@@ -152,37 +198,33 @@ if (isset($_SESSION['login']) && $_SESSION['login'] === true) {
             z-index: 2;
         }
 
-        input[type="text"],
-        input[type="password"] {
+        input[type="text"], input[type="password"] {
             width: 100%;
             padding: 16px 16px 16px 48px;
             border: 2px solid #e2e8f0;
             border-radius: 12px;
             font-size: 1rem;
-            background: #f7fafc;
             transition: all 0.3s ease;
-            position: relative;
+            background: rgba(255, 255, 255, 0.9);
+            color: #2d3748;
         }
 
-        input[type="text"]:focus,
-        input[type="password"]:focus {
-            border-color: #667eea;
+        input[type="text"]:focus, input[type="password"]:focus {
             outline: none;
-            background: white;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-            transform: translateY(-2px);
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: rgba(255, 255, 255, 1);
         }
 
-        input[type="text"]:focus + i,
-        input[type="password"]:focus + i {
+        input[type="text"]:focus + i, input[type="password"]:focus + i {
             color: #667eea;
         }
 
         .submit-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 16px;
             border: none;
+            padding: 16px;
             border-radius: 12px;
             font-size: 1rem;
             font-weight: 600;
@@ -190,133 +232,25 @@ if (isset($_SESSION['login']) && $_SESSION['login'] === true) {
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            margin-top: 0.5rem;
-        }
-
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .submit-btn:hover::before {
-            left: 100%;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
 
         .submit-btn:active {
             transform: translateY(0);
         }
 
-        .error {
-            background: #fed7d7;
-            color: #c53030;
-            padding: 12px 16px;
-            border-radius: 8px;
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            border-left: 4px solid #e53e3e;
-            animation: shake 0.5s ease-in-out;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        .floating-shapes {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .shape {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: floatShapes 15s infinite linear;
-        }
-
-        .shape:nth-child(1) {
-            width: 80px;
-            height: 80px;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .shape:nth-child(2) {
-            width: 120px;
-            height: 120px;
-            left: 80%;
-            animation-delay: 2s;
-        }
-
-        .shape:nth-child(3) {
-            width: 60px;
-            height: 60px;
-            left: 50%;
-            animation-delay: 4s;
-        }
-
-        @keyframes floatShapes {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .login-container {
-                margin: 1rem;
-                padding: 2rem 1.5rem;
-            }
-            
-            h2 {
-                font-size: 1.5rem;
-            }
-            
-            .logo-icon {
-                width: 60px;
-                height: 60px;
-            }
-            
-            .logo-icon i {
-                font-size: 1.5rem;
-            }
-        }
-
-        /* Loading animation */
-        .loading {
+        .submit-btn .loading {
             display: none;
             width: 20px;
             height: 20px;
-            border: 2px solid #ffffff;
-            border-top: 2px solid transparent;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin-left: 10px;
@@ -334,6 +268,30 @@ if (isset($_SESSION['login']) && $_SESSION['login'] === true) {
         .submit-btn.loading .loading {
             display: inline-block;
         }
+
+        .error {
+            background: rgba(254, 202, 202, 0.9);
+            color: #c53030;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border-left: 4px solid #e53e3e;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                margin: 1rem;
+                padding: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -346,7 +304,7 @@ if (isset($_SESSION['login']) && $_SESSION['login'] === true) {
     <div class="login-container">
         <div class="logo-section">
             <div class="logo-icon">
-                <i class="fas fa-graduation-cap"></i>
+                <img src="images/logomarca.png" alt="Logo CEF 411" style="height: 4rem; width: auto;">
             </div>
             <h2>Bem-vindo<br>CEF 411</h2>
             <p class="subtitle">Sistema de Consulta Passivo Escolar</p>
