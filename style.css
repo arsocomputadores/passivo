@@ -412,7 +412,7 @@ h1::after {
     box-shadow: 0 4px 6px rgba(99, 102, 241, 0.3);
 }
 
-/* Responsividade melhorada */
+/* Responsividade melhorada para o modal de cadastro */
 @media (max-width: 768px) {
     .card-form {
         margin: 0.5rem;
@@ -442,7 +442,7 @@ h1::after {
         margin: 0.25rem;
         padding: 1rem;
         width: calc(100% - 0.5rem);
-        max-height: 90vh;
+        max-height: 95vh; /* Aumentado para telas muito pequenas */
     }
 
     .container {
@@ -452,6 +452,60 @@ h1::after {
 
     h1 {
         font-size: 1.5rem;
+    }
+}
+
+/* Media queries adicionais para monitores específicos */
+@media (max-height: 600px) {
+    .card-form {
+        max-height: 95vh;
+        padding: 1rem;
+    }
+    
+    .form-group {
+        gap: 0.3rem;
+    }
+    
+    .cadastro-form {
+        gap: 0.8rem;
+    }
+}
+
+@media (max-height: 500px) {
+    .card-form {
+        max-height: 98vh;
+        padding: 0.8rem;
+        margin: 0.1rem auto;
+    }
+    
+    .form-group label {
+        font-size: 0.8rem;
+    }
+    
+    .form-group input {
+        padding: 0.6rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* Para monitores ultrawide ou com altura muito limitada */
+@media (max-height: 400px) {
+    .card-form {
+        max-height: 99vh;
+        padding: 0.5rem;
+        margin: 0.05rem auto;
+    }
+    
+    .cadastro-form {
+        gap: 0.5rem;
+    }
+    
+    .form-group {
+        gap: 0.2rem;
+    }
+    
+    .form-actions {
+        margin-top: 0.5rem;
     }
 }
 

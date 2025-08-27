@@ -516,6 +516,8 @@ if (isset($_GET['id'])) {
         .modal-content-form {
             padding: 1.5rem;
             margin: 1rem;
+            width: calc(100% - 2rem);
+            max-width: none;
         }
         
         .modal-icon-form {
@@ -524,6 +526,45 @@ if (isset($_GET['id'])) {
         
         .modal-message-form {
             font-size: 1rem;
+        }
+    }
+    
+    @media (max-height: 600px) {
+        .modal-content-form {
+            padding: 1rem;
+            margin: 0.5rem;
+        }
+        
+        .modal-icon-form {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .modal-message-form {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+    }
+    
+    @media (max-height: 400px) {
+        .modal-content-form {
+            padding: 0.8rem;
+            margin: 0.2rem;
+        }
+        
+        .modal-icon-form {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .modal-message-form {
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .btn-close-form {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.9rem;
         }
     }
     </style>
